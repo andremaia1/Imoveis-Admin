@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Administrador;
 
-class AdministradorController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,7 @@ class AdministradorController extends Controller
      */
     public function index()
     {
-        $admins = Administrador::all();
-        
-        return view('administrador.admin_list', compact('admins'));
+        return view('usuario.imoveis_list');
     }
 
     /**
@@ -26,9 +23,7 @@ class AdministradorController extends Controller
      */
     public function create()
     {
-        $opcao = 1;
-        
-        return view('administrador.admin_form', compact('opcao'));
+        //
     }
 
     /**
@@ -39,18 +34,7 @@ class AdministradorController extends Controller
      */
     public function store(Request $request)
     {
-        $novo = Administrador::create([
-            'nome' => $request['nome'],
-            'email' => $request['email'],
-            'password' => bcrypt($request['senha']),
-            'telefone' => $request['telefone'],
-        ]);
-        
-//        if ($novo) {
-//            return redirect('/admin');
-//        }
-        
-        return redirect('/admin');
+        //
     }
 
     /**
@@ -72,11 +56,7 @@ class AdministradorController extends Controller
      */
     public function edit($id)
     {
-        $registro = Administrador::find($id);
-        
-        $opcao = 2;
-        
-        return view('administrador.admin_form', compact('registro', 'opcao'));
+        //
     }
 
     /**
@@ -88,14 +68,7 @@ class AdministradorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $registro = Administrador::find($id);
-        
-        $dados = $request->all();
-        
-        if ($registro->update($dados)) {
-            return redirect('/admin');
-        }
-        return redirect('/admin');
+        //
     }
 
     /**
@@ -106,27 +79,22 @@ class AdministradorController extends Controller
      */
     public function destroy($id)
     {
-        $registro = Administrador::find($id);
-        
-        if ($registro->delete()) {
-            return redirect('/admin');
-        }
-        return redirect('/admin');
+        //
     }
     
     public function login()
     {
-        return view('auth.loginAdmin');
+        return view('auth.loginUsuario');
     }
     
     public function logar(Request $request)
     {
         $dados = ['email' => $request->get('email'), 'password' => $request->get('password')];
         
-        if (Auth()->guard('administrador')->attempt($dados)) {
-            return redirect('/admin');
+        if (Auth()->guard('usuario')->attempt($dados)) {
+            return redirect('/usuario');
         } else {
-            return redirect('/admin/login')
+            return redirect('/')
                 ->withErrors(['erroLogin' => 'Erro. Email ou senha inválidos!'])
                 ->withInput();
         }
@@ -134,7 +102,7 @@ class AdministradorController extends Controller
     
     public function logout()
     {
-        auth()->guard('administrador')->logout();
-        return redirect('/admin/login');
+        auth()->guard('usuario')->logout();
+        return redirect('/');
     }
 }

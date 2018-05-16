@@ -11,19 +11,29 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::group(['middleware' => 'administrador'], function () {
     
     Route::get('/admin/login', 'AdministradorController@login');
-    Route::post('/admin/logar', 'AdministradorController@logar')->name('adm.logar');
+    Route::post('/admin/logar', 'AdministradorController@logar')->name('admin.logar');
     
     Route::group(['middleware' => 'auth:administrador'], function () {
         
         Route::get('/admin', 'AdministradorController@index');
-        Route::get('/admin/logout', 'AdministradorController@logout')->name('adm.logout');
+        Route::get('/admin/logout', 'AdministradorController@logout')->name('admin.logout');
+        
+        Route::resource('admins', 'AdministradorController');
+    });
+});
+
+Route::group(['middleware' => 'usuario'], function () {
+    
+    Route::get('/', 'UsuarioController@login')->name('usuario.login');
+    Route::post('/usuario/logar', 'UsuarioController@logar')->name('usuario.logar');
+    
+    Route::group(['middleware' => 'auth:usuario'], function () {
+        
+        Route::get('/usuario', 'UsuarioController@index');
+        Route::get('/usuario/logout', 'UsuarioController@logout')->name('usuario.logout');
     });
 });
 

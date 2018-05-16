@@ -12,4 +12,6 @@ class Administrador extends Authenticatable
     protected $table = 'administrador';
     
     protected $fillable = ['nome', 'email', 'password', 'telefone'];
+    
+    public $timestamps = false;
 }

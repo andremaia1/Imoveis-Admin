@@ -19,13 +19,16 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#">Administradores</a>
+      <a class="nav-link" href="#">Imóveis</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Usuários</a>
+      <a class="nav-link" href="#">Locações</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Relatórios</a>
+      <a class="nav-link" href="#">Compras</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Vendas</a>
     </li>
   </ul>
   <ul class="navbar-nav ml-auto">
@@ -33,7 +36,7 @@
         <a class="nav-link" href="#"><i class="fas fa-user"></i> {{Auth::user()->nome}}</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{route('admin.logout')}}"><i class="fas fa-arrow-right"></i> Sair</a>
+        <a class="nav-link" href="{{route('usuario.logout')}}"><i class="fas fa-arrow-right"></i> Sair</a>
     </li>
   </ul>
 </nav>
@@ -44,4 +47,5 @@
 
 </body>
 </html>
+
 

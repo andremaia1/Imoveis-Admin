@@ -15,7 +15,7 @@ class AdministradorTableSeeder extends Seeder
             'nome' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123456'),
-            'telefone'=> '99191-9191'
+            'telefone' => '99191-9191'
         ]);
     }
 }
