@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Imoveis Admin</title>
@@ -19,10 +19,10 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#">Administradores</a>
+      <a class="nav-link" href="{{route('admins.index')}}">Administradores</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Usuários</a>
+      <a class="nav-link" href="{{route('usuarios.lista')}}">Usuários</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Relatórios</a>

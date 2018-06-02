@@ -22,6 +22,9 @@ Route::group(['middleware' => 'administrador'], function () {
         Route::get('/admin/logout', 'AdministradorController@logout')->name('admin.logout');
         
         Route::resource('admins', 'AdministradorController');
+        Route::resource('users', 'UsuarioController');
+        Route::get('/usuarios/lista', 'UsuarioController@lista')->name('usuarios.lista');
+        Route::get('/usuarios/alterar_status/{id}', 'UsuarioController@alterarStatus')->name('usuarios.alterar_status');
     });
 });
 

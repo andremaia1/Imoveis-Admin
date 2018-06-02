@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Usuario;
 
 class UsuarioController extends Controller
 {
@@ -45,7 +46,9 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        //
+        $reg = Usuario::find($id);
+        
+        return view('administrador.usuario_view', compact('reg'));
     }
 
     /**
@@ -82,6 +85,24 @@ class UsuarioController extends Controller
         //
     }
     
+    public function lista()
+    {
+        $usuarios = Usuario::all();
+        
+        return view('administrador.usuarios_list', compact('usuarios'));
+    }
+    
+    public function alterarStatus($id)
+    {
+        $usuario = Usuario::find($id);
+        
+        $usuario->ativo = ($usuario->ativo === 0) ? 1 : 0;
+        
+        if ($usuario->update()) {
+            return redirect('usuarios/lista');
+        }
+    }
+    
     public function login()
     {
         return view('auth.loginUsuario');
@@ -92,7 +113,16 @@ class UsuarioController extends Controller
         $dados = ['email' => $request->get('email'), 'password' => $request->get('password')];
         
         if (Auth()->guard('usuario')->attempt($dados)) {
-            return redirect('/usuario');
+            
+            if (auth()->guard('usuario')->getUser()->ativo === 1) {
+                return redirect('/usuario');
+            } else {
+                auth()->guard('usuario')->logout();
+                
+                return redirect('/')
+                ->withErrors(['erroLogin' => 'Erro. Esta conta foi desativada!'])
+                ->withInput();
+            }
         } else {
             return redirect('/')
                 ->withErrors(['erroLogin' => 'Erro. Email ou senha inválidos!'])
