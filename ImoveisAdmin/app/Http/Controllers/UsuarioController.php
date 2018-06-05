@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Usuario;
+use App\Imovel;
 
 class UsuarioController extends Controller
 {
@@ -14,7 +15,11 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        return view('usuario.imoveis_list');
+        $idUsuario = auth()->guard('usuario')->getUser()->id;
+        
+        $imoveis = Imovel::where('usuario_id', $idUsuario)->get();
+        
+        return view('usuario.imoveis_list', compact('imoveis'));
     }
 
     /**
