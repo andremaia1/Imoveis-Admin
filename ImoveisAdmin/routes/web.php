@@ -37,6 +37,7 @@ Route::group(['middleware' => 'usuario'], function () {
         
         Route::get('/usuario', 'UsuarioController@index');
         Route::get('/usuario/logout', 'UsuarioController@logout')->name('usuario.logout');
+        Route::resource('imoveis', 'ImovelController');
     });
 });
 

@@ -10,7 +10,7 @@
         <h2>Lista de Imóveis</h2>
     </div>
     <div class="col-sm-1">
-        <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+        <a href="{{route('imoveis.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
     </div>
 </div>
 &nbsp;
@@ -36,9 +36,17 @@
             <td>{{$imovel->areaConstr}}</td>
             <td>{{$imovel->areaTotal}}</td>
             <td>
-                <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                <a href="#" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                <a href="{{route('imoveis.show', $imovel->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                <a href="{{route('imoveis.edit', $imovel->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                <form style="display : inline-block"
+                        method="POST"
+                        action="{{route('imoveis.destroy', $imovel->id)}}"
+                        onsubmit="return confirm('Tem certeza que deseja excluir o imóvel {{$imovel->nome_apelido}}?')">
+                        {{ method_field('delete') }}
+                        @csrf
+                        <button type="submit"
+                                class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                  </form>
             </td>
         </tr>
       @endforeach

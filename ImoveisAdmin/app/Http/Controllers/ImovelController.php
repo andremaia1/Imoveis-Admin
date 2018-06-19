@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Imovel;
 
 class ImovelController extends Controller
 {
@@ -23,7 +24,9 @@ class ImovelController extends Controller
      */
     public function create()
     {
-        //
+        $opcao = 1;
+        
+        return view('usuario.imovel_form', compact('opcao'));
     }
 
     /**
@@ -34,7 +37,19 @@ class ImovelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $novo = Imovel::create([
+            'nome_apelido' => $request->nome,
+            'descricao' => $request->descricao,
+            'tipo' => $request->tipo,
+            'status' => $request->status,
+            'areaConstr' => $request->areaConstr,
+            'areaTotal' => $request->areaTotal,
+            'usuario_id' => auth()->guard('usuario')->getUser()->id
+        ]);
+        
+        if ($novo) {
+            return redirect('/usuario');
+        }
     }
 
     /**
@@ -45,7 +60,9 @@ class ImovelController extends Controller
      */
     public function show($id)
     {
-        //
+        $imovel = Imovel::find($id);
+        
+        return view('usuario.imovel_view', compact('imovel'));
     }
 
     /**
@@ -56,7 +73,11 @@ class ImovelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $imovel = Imovel::find($id);
+        
+        $opcao = 2;
+        
+        return view('usuario.imovel_form', compact('imovel', 'opcao'));
     }
 
     /**
@@ -68,7 +89,14 @@ class ImovelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $imovel = Imovel::find($id);
+        
+        $dados = $request->all();
+        
+        if ($imovel->update($dados)) {
+            return redirect('/usuario');
+        }
+        return redirect('/usuario');
     }
 
     /**
@@ -79,6 +107,11 @@ class ImovelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $imovel = Imovel::find($id);
+        
+        if ($imovel->delete()) {
+            return redirect('/usuario');
+        }
+        return redirect('/usuario');
     }
 }
