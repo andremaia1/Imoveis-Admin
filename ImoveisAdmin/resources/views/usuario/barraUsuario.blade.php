@@ -19,10 +19,10 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#">Imóveis</a>
+      <a class="nav-link" href="{{route('usuario.index')}}">Imóveis</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Locações</a>
+      <a class="nav-link" href="{{route('locacoes.index')}}">Locações</a>
     </li>
   </ul>
   <ul class="navbar-nav ml-auto">

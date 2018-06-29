@@ -51,8 +51,8 @@
       <select class="form-control" id="status" name="status">
           <?php
             $array = ["<option>Desocupado</option>",
-                      "<option>Alugado</option>",
-                      "<option>Por Alugar</option>"];
+                      "<option>Por Alugar</option>",
+                       "<option disabled>Alugado</option>"];
             
             if ($opcao === 2) {
                 $array[$imovel->getStatus()-1] = "<option selected>" . $imovel->status . "</option>";

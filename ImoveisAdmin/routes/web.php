@@ -35,9 +35,10 @@ Route::group(['middleware' => 'usuario'], function () {
     
     Route::group(['middleware' => 'auth:usuario'], function () {
         
-        Route::get('/usuario', 'UsuarioController@index');
+        Route::get('/usuario', 'UsuarioController@index')->name('usuario.index');
         Route::get('/usuario/logout', 'UsuarioController@logout')->name('usuario.logout');
         Route::resource('imoveis', 'ImovelController');
+        Route::resource('locacoes', 'LocacaoController');
     });
 });
 

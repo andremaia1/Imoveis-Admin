@@ -46,9 +46,9 @@ class Imovel extends Model
         if ($value === 1) {
             return 'Desocupado';
         } else if ($value === 2) {
-            return 'Alugado';
-        } else if ($value === 3) {
             return 'Por Alugar';
+        } else if ($value === 3) {
+            return 'Alugado';
         }
     }
     
@@ -80,9 +80,9 @@ class Imovel extends Model
         
         if ($value === 'Desocupado') {
             $this->attributes['status'] = 1;
-        } else if ($value === 'Alugado') {
-            $this->attributes['status'] = 2;
         } else if ($value === 'Por Alugar') {
+            $this->attributes['status'] = 2;
+        } else if ($value === 'Alugado') {
             $this->attributes['status'] = 3;
         }
     }
