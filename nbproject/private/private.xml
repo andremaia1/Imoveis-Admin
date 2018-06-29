@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/administrador/usuario_view.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Http/Controllers/LocacaoController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/locacoes_list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Http/Controllers/ImovelController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/imoveis_list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/database/migrations/2018_06_19_184546_create_locacao_table.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/locacao_form.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Imovel.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/imovel_view.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Administrador.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/database/seeds/DatabaseSeeder.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/imovel_form.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/administrador/usuarios_list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/database/migrations/2018_06_02_192145_create_imovel_table.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Http/Controllers/AdministradorController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Http/Controllers/UsuarioController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/database/seeds/UsuarioTableSeeder.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/barraUsuario.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/config/app.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Locacao.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/administrador/barraAdmin.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Usuario.php</file>
+        </group>
+    </open-files>
+</project-private>
