@@ -3,29 +3,38 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/administrador/usuario_view.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Http/Controllers/LocacaoController.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/locacoes_list.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Http/Controllers/ImovelController.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/imoveis_list.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/database/migrations/2018_06_19_184546_create_locacao_table.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/locacao_form.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Imovel.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/imovel_view.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Administrador.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/database/seeds/DatabaseSeeder.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/imovel_form.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/administrador/usuarios_list.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/database/migrations/2018_06_02_192145_create_imovel_table.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Http/Controllers/AdministradorController.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Http/Controllers/UsuarioController.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/routes/web.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/database/seeds/UsuarioTableSeeder.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/usuario/barraUsuario.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/config/app.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Locacao.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/resources/views/administrador/barraAdmin.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/ImoveisAdmin/app/Usuario.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/locatarios_list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Locacao.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Locatario.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/seeds/DatabaseSeeder.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/LocacaoController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/ImovelController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Imovel.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/migrations/2018_07_03_043226_add_locatario_id_to_locacao_table.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/locacoes_list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Providers/AppServiceProvider.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/migrations/2018_07_04_024125_create_pagamento_table.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/LocatarioController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/pagamentos_list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/migrations/2018_05_14_160624_create_usuario_table.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/migrations/2018_06_19_184546_create_locacao_table.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/migrations/2018_07_03_023706_create_locatario_table.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/barraUsuario.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/.env</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/config/database.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/migrations/2018_06_02_192145_create_imovel_table.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/administrador/admin_form.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/imovel_form.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/config/auth.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Pagamento.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/locacao_form.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/locatario_view.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/AdministradorController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/UsuarioController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/imovel_view.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/PagamentoController.php</file>
+            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/pagamento_form.blade.php</file>
         </group>
     </open-files>
 </project-private>

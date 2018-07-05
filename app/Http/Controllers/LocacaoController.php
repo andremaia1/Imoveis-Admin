@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Locacao;
+use App\Locatario;
 use App\Imovel;
+use App\Pagamento;
 
 class LocacaoController extends Controller
 {
@@ -56,16 +58,53 @@ class LocacaoController extends Controller
         $imovel = Imovel::where('nome_apelido', $request->imovel)
                 ->where('usuario_id', $idUsuario)->get()->first();
         
-        $novo = Locacao::create([
+        $locatario = Locatario::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'telefone' => $request->telefone,
+            'cpf' => $request->cpf,
+            'rg' => $request->rg
+        ]);
+        
+        $locacao = Locacao::create([
             'valor' => $request->valor,
             'inicioContrato' => $request->dataInicio,
             'terminoContrato' => $request->dataTermino,
-            'imovel_id' => $imovel->id
+            'imovel_id' => $imovel->id,
+            'locatario_id' => $locatario->id
         ]);
         
         $imovel->status = 'Alugado';
         
-        if ($novo && $imovel->update()) {
+        $anoInicio = explode('-', $request->dataInicio)[0];
+        $mesInicio = explode('-', $request->dataInicio)[1];
+        
+        $anoTermino = explode('-', $request->dataTermino)[0];        
+        $mesTermino = explode('-', $request->dataTermino)[1];
+        
+        $quantMeses = (($anoTermino - $anoInicio) * 12) + ($mesTermino - $mesInicio) + 1;
+        
+        $ano = $anoInicio;
+        $mes = $mesInicio;
+        
+        for ($i = 0; $i < $quantMeses; $i++) {
+            
+            $pagamento = Pagamento::create([
+                'dataVencimento' => $ano . '-' . $mes . '-' . $request->dia,
+                'dataPagamento' => null,
+                'status' => 'A Pagar',
+                'locacao_id' => $locacao->id
+            ]);
+            
+            $mes++;
+            
+            if ($mes > 12) {
+                $mes = 1;
+                $ano++;
+            }
+        }
+        
+        if ($locatario && $locacao && $imovel->update()) {
             return redirect('/locacoes');
         }
     }
@@ -93,7 +132,9 @@ class LocacaoController extends Controller
         
         $locacao = Locacao::find($id);
         
-        return view('usuario.locacao_form', compact('locacao', 'opcao'));
+        $locatario = Locatario::find($locacao->locatario_id);
+        
+        return view('usuario.locacao_form', compact('locacao', 'locatario', 'opcao'));
     }
 
     /**
@@ -107,6 +148,8 @@ class LocacaoController extends Controller
     {
         $locacao = Locacao::find($id);
         
+        $locatario = Locatario::find($locacao->locatario_id);
+        
         $locacao->valor = $request->valor;
         
         if ($request->dataInicio !== null) {
@@ -116,7 +159,13 @@ class LocacaoController extends Controller
             $locacao->terminoContrato = $request->dataTermino;
         }
         
-        if ($locacao->update()) {
+        $locatario->nome = $request->nome;
+        $locatario->email = $request->email;
+        $locatario->telefone = $request->telefone;
+        $locatario->cpf = $request->cpf;
+        $locatario->rg = $request->rg;
+        
+        if ($locacao->update() && $locatario->update()) {
             return redirect('/locacoes');
         }
         return redirect('/locacoes');
@@ -132,7 +181,13 @@ class LocacaoController extends Controller
     {
         $locacao = Locacao::find($id);
         
-        if ($locacao->delete()) {
+        $locatario = Locatario::join('locacao', 'locatario.id', 'locacao.locatario_id')
+                ->where('locacao.id', $id)
+                ->select('locatario.*')->get()->first();
+        
+        $locacao->imovel->status = 'Desocupado';
+        
+        if ($locacao->imovel->update() && $locacao->delete() && $locatario->delete()) {
             return redirect('/locacoes');
         }
         return redirect('/locacoes');
