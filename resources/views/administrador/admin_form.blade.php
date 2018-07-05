@@ -16,12 +16,12 @@
       @csrf
     <div class="form-group">
       <label for="nome">Nome:</label>
-      <input type="nome" class="form-control" id="nome" 
+      <input type="text" class="form-control" id="nome" 
              value="{{$registro->nome or old('nome')}}" placeholder="Digite o nome" name="nome">
     </div>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email"
+      <input type="text" class="form-control" id="email"
             value="{{$registro->email or old('email')}}" placeholder="Digite o email" name="email">
     </div>
       @if ($opcao === 1)
@@ -31,10 +31,10 @@
         </div>
       @endif
       <div class="form-group">
-      <label for="telefone">Telefone:</label>
-      <input type="telefone" class="form-control" id="telefone" 
+        <label for="telefone">Telefone:</label>
+        <input type="text" class="form-control" id="telefone" 
             value="{{$registro->telefone or old('telefone')}}" placeholder="Digite o telefone" name="telefone">
-    </div>
+      </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
   </form>
 </div>

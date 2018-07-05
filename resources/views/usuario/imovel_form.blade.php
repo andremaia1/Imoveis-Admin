@@ -16,12 +16,12 @@
       @csrf
     <div class="form-group">
       <label for="nome">Nome (Apelido):</label>
-      <input type="nome" class="form-control" id="nome"
+      <input type="text" class="form-control" id="nome"
              value="{{$imovel->nome_apelido or old('nome_apelido')}}" placeholder="Digite o nome (apelido)" name="nome">
     </div>
     <div class="form-group">
       <label for="descricao">Descrição:</label>
-      <textarea type="descricao" class="form-control" id="descricao" rows="6"
+      <textarea type="text" class="form-control" id="descricao" rows="6"
              placeholder="Descrição do imóvel" name="descricao">{{$imovel->descricao or ""}}</textarea>
     </div>
     <div class="form-group">
@@ -66,12 +66,12 @@
     </div>
     <div class="form-group">
       <label for="areaConstr">Área Construída (m²):</label>
-      <input type="areaConstr" class="form-control" id="areaConstr"
+      <input type="text" class="form-control" id="areaConstr"
              value="{{$imovel->areaConstr or old('areaConstr')}}" placeholder="Área Construída" name="areaConstr">
     </div>
     <div class="form-group">
       <label for="areaTotal">Área Total (m²):</label>
-      <input type="areaTotal" class="form-control" id="areaTotal"
+      <input type="text" class="form-control" id="areaTotal"
              value="{{$imovel->areaTotal or old('areaTotal')}}" placeholder="Área Total" name="areaTotal">
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>

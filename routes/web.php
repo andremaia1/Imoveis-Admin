@@ -39,6 +39,10 @@ Route::group(['middleware' => 'usuario'], function () {
         Route::get('/usuario/logout', 'UsuarioController@logout')->name('usuario.logout');
         Route::resource('imoveis', 'ImovelController');
         Route::resource('locacoes', 'LocacaoController');
+        Route::get('locatario/ver/{id}', 'LocatarioController@show')->name('locatario.ver');
+        Route::get('pagamentos/{id}', 'PagamentoController@lista')->name('pagamentos.lista');
+        Route::get('pagamento/editar/{id}', 'PagamentoController@editar')->name('pagamentos.editar');
+        Route::put('pagamento/atualizar/{id}', 'PagamentoController@atualizar')->name('pagamentos.atualizar');
     });
 });
 
