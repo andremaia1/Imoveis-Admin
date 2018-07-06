@@ -24,14 +24,12 @@ class Imovel extends Model
         } else if ($value === 2) {
             return 'Apartamento';
         } else if ($value === 3) {
-            return 'Terreno';
-        } else if ($value === 4) {
             return 'Chácara';
-        } else if ($value === 5) {
+        } else if ($value === 4) {
             return 'Sítio';
-        } else if ($value === 6) {
+        } else if ($value === 5) {
             return 'Fazenda';
-        } else if ($value === 7) {
+        } else if ($value === 6) {
             return 'Imóvel Comercial';
         }
     }
@@ -63,16 +61,14 @@ class Imovel extends Model
             $this->attributes['tipo'] = 1;
         } else if ($value === 'Apartamento') {
             $this->attributes['tipo'] = 2;
-        } else if ($value === 'Terreno') {
-            $this->attributes['tipo'] = 3;
         } else if ($value === 'Chácara') {
-            $this->attributes['tipo'] = 4;
+            $this->attributes['tipo'] = 3;
         } else if ($value === 'Sítio') {
-            $this->attributes['tipo'] = 5;
+            $this->attributes['tipo'] = 4;
         } else if ($value === 'Fazenda') {
-            $this->attributes['tipo'] = 6;
+            $this->attributes['tipo'] = 5;
         } else if ($value === 'Imóvel Comercial') {
-            $this->attributes['tipo'] = 7;
+            $this->attributes['tipo'] = 6;
         }
     }
     

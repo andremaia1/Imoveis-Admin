@@ -30,7 +30,6 @@
           <?php
             $array = ["<option>Casa</option>",
                       "<option>Apartamento</option>",
-                      "<option>Terreno</option>",
                       "<option>Chácara</option>",
                       "<option>Sítio</option>",
                       "<option>Fazenda</option>",

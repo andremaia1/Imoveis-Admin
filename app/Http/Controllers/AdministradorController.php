@@ -46,10 +46,9 @@ class AdministradorController extends Controller
             'telefone' => $request['telefone'],
         ]);
         
-//        if ($novo) {
-//            return redirect('/admin');
-//        }
-        
+        if ($novo) {
+            return redirect('/admin');
+        }
         return redirect('/admin');
     }
 
@@ -114,11 +113,13 @@ class AdministradorController extends Controller
         return redirect('/admin');
     }
     
+    //Retorna o formulário de login do usuário
     public function login()
     {
         return view('auth.loginAdmin');
     }
     
+    //Faz a autenticação do usuário
     public function logar(Request $request)
     {
         $dados = ['email' => $request->get('email'), 'password' => $request->get('password')];
@@ -132,6 +133,7 @@ class AdministradorController extends Controller
         }
     }
     
+    //Desloga um usuário do sistema
     public function logout()
     {
         auth()->guard('administrador')->logout();

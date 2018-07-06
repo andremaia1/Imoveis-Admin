@@ -34,6 +34,7 @@
               <td>{{$usuario->telefone}}</td>
               <td>
                   <a href="{{route('users.show', $usuario->id)}}" class="btn btn-info" role="button">Ver</a>
+                  <a href="{{route('usuarios.listar_imoveis', $usuario->id)}}" class="btn btn-info" role="button">Ver Imóveis</a>
               </td>
           </tr>
           @endforeach

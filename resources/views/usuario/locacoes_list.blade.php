@@ -20,7 +20,7 @@
           <th>Imóvel</th>
           <th>Pagamento</th>
           <th>Locatário</th>
-          <th>Valor</th>
+          <th>Valor (R$)</th>
           <th>Data Início Contrato</th>
           <th>Data Término Contrato</th>
           <th>Ações</th>
@@ -33,10 +33,10 @@
           <td><a href="{{route('pagamentos.lista', $locacao->id)}}">Ver Pagamentos</a></td>
           <td><a href="{{route('locatario.ver', $locacao->locatario->id)}}">{{$locacao->locatario->nome}}</a></td>
           <td>{{$locacao->valor}}</td>
-          <td>{{date_format(new DateTime($locacao->inicioContrato), 'd/m/y')}}</td>
-          <td>{{date_format(new DateTime($locacao->terminoContrato), 'd/m/y')}}</td>
+          <td>{{date_format(new DateTime($locacao->inicioContrato), 'd/m/Y')}}</td>
+          <td>{{date_format(new DateTime($locacao->terminoContrato), 'd/m/Y')}}</td>
           <td>
-            <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+            <a href="{{route('locacoes.show', $locacao->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
             <a href="{{route('locacoes.edit', $locacao->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
             <form style="display : inline-block"
                     method="POST"
