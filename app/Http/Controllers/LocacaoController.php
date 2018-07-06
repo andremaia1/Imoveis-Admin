@@ -19,6 +19,7 @@ class LocacaoController extends Controller
     {
         $idUsuario = auth()->guard('usuario')->getUser()->id;
         
+        //Busca as locações do usuário atual
         $locacoes = Locacao::join('imovel', 'imovel_id', 'imovel.id')
                 ->where('imovel.usuario_id', $idUsuario)
                 ->select('locacao.*')->get();
@@ -37,12 +38,13 @@ class LocacaoController extends Controller
         
         $idUsuario = auth()->guard('usuario')->getUser()->id;
         
+        //Busca os imóveis que não estão alugados
         $imoveis = Imovel::whereNotIn('imovel.id', function($q) {
             $q->join('locacao', 'imovel.id', 'locacao.imovel_id')
                 ->select('imovel.id')
                 ->from('imovel');})->where('imovel.usuario_id', $idUsuario)->get();
         
-        return view('usuario.locacao_form', compact('imoveis', 'opcao'));
+        return view('usuario.locacao_form', compact('opcao', 'imoveis'));
     }
 
     /**
@@ -58,6 +60,7 @@ class LocacaoController extends Controller
         $imovel = Imovel::where('nome_apelido', $request->imovel)
                 ->where('usuario_id', $idUsuario)->get()->first();
         
+        //Cria o novo locatário
         $locatario = Locatario::create([
             'nome' => $request->nome,
             'email' => $request->email,
@@ -66,6 +69,7 @@ class LocacaoController extends Controller
             'rg' => $request->rg
         ]);
         
+        //Cria a nova locação
         $locacao = Locacao::create([
             'valor' => $request->valor,
             'inicioContrato' => $request->dataInicio,
@@ -76,6 +80,7 @@ class LocacaoController extends Controller
         
         $imovel->status = 'Alugado';
         
+        //As linhas abaixo fazem o cálculo das datas para a geração dos pagamentos (parcelas)
         $anoInicio = explode('-', $request->dataInicio)[0];
         $mesInicio = explode('-', $request->dataInicio)[1];
         
@@ -87,6 +92,12 @@ class LocacaoController extends Controller
         $ano = $anoInicio;
         $mes = $mesInicio;
         
+        if (explode('-', $request->dataInicio)[2] > $request->dia) {
+            $mes++;
+            $quantMeses--;
+        }
+        
+        //Gera os pagamentos de acordo com as datas
         for ($i = 0; $i < $quantMeses; $i++) {
             
             $pagamento = Pagamento::create([
@@ -117,7 +128,9 @@ class LocacaoController extends Controller
      */
     public function show($id)
     {
-        //
+        $locacao = Locacao::find($id);
+        
+        return view('usuario.locacao_view', compact('locacao'));
     }
 
     /**

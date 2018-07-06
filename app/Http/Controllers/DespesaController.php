@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Despesa;
 use App\Imovel;
 
-class ImovelController extends Controller
+class DespesaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,13 @@ class ImovelController extends Controller
      */
     public function index()
     {
-        //
+        $idUsuario = auth()->guard('usuario')->getUser()->id;
+        
+        $despesas = Despesa::join('imovel', 'imovel_id', 'imovel.id')
+                ->where('imovel.usuario_id', $idUsuario)
+                ->select('despesa.*')->get();
+        
+        return view('usuario.despesas_list', compact('despesas'));
     }
 
     /**
@@ -26,7 +33,11 @@ class ImovelController extends Controller
     {
         $opcao = 1;
         
-        return view('usuario.imovel_form', compact('opcao'));
+        $idUsuario = auth()->guard('usuario')->getUser()->id;
+        
+        $imoveis = Imovel::where('usuario_id', $idUsuario)->get();
+        
+        return view('usuario.despesa_form', compact('opcao', 'imoveis'));
     }
 
     /**
@@ -37,18 +48,19 @@ class ImovelController extends Controller
      */
     public function store(Request $request)
     {
-        $novo = Imovel::create([
-            'nome_apelido' => $request->nome,
+        $idUsuario = auth()->guard('usuario')->getUser()->id;
+        
+        $imovel = Imovel::where('nome_apelido', $request->imovel)
+                ->where('usuario_id', $idUsuario)->get()->first();
+        
+        $novo = Despesa::create([
             'descricao' => $request->descricao,
-            'tipo' => $request->tipo,
-            'status' => $request->status,
-            'areaConstr' => $request->areaConstr,
-            'areaTotal' => $request->areaTotal,
-            'usuario_id' => auth()->guard('usuario')->getUser()->id
+            'valor' => $request->valor,
+            'imovel_id' => $imovel->id
         ]);
         
         if ($novo) {
-            return redirect('/usuario');
+            return redirect('/despesas');
         }
     }
 
@@ -60,9 +72,7 @@ class ImovelController extends Controller
      */
     public function show($id)
     {
-        $imovel = Imovel::find($id);
-        
-        return view('imovel_view', compact('imovel'));
+        //
     }
 
     /**
@@ -73,11 +83,11 @@ class ImovelController extends Controller
      */
     public function edit($id)
     {
-        $imovel = Imovel::find($id);
-        
         $opcao = 2;
         
-        return view('usuario.imovel_form', compact('imovel', 'opcao'));
+        $despesa = Despesa::find($id);
+        
+        return view('usuario.despesa_form', compact('despesa', 'opcao'));
     }
 
     /**
@@ -89,14 +99,14 @@ class ImovelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $imovel = Imovel::find($id);
+        $despesa = Despesa::find($id);
         
         $dados = $request->all();
         
-        if ($imovel->update($dados)) {
-            return redirect('/usuario');
+        if ($despesa->update($dados)) {
+            return redirect('/despesas');
         }
-        return redirect('/usuario');
+        return redirect('/despesas');
     }
 
     /**
@@ -107,11 +117,11 @@ class ImovelController extends Controller
      */
     public function destroy($id)
     {
-        $imovel = Imovel::find($id);
+        $despesa = Despesa::find($id);
         
-        if ($imovel->delete()) {
-            return redirect('/usuario');
+        if ($despesa->delete()) {
+            return redirect('/despesas');
         }
-        return redirect('/usuario');
+        return redirect('/despesas');
     }
 }

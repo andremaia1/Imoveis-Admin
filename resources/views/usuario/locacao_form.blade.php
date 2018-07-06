@@ -33,8 +33,8 @@
       ?>
     </div>
     <div class="form-group">
-      <label for="valor">Valor:</label>
-      <input type="valor" class="form-control" id="valor"
+      <label for="valor">Valor (R$):</label>
+      <input type="text" class="form-control" id="valor"
              value="{{$locacao->valor or old('valor')}}" placeholder="Valor" name="valor">
     </div>
     <div class="form-group">

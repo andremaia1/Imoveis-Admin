@@ -19,7 +19,7 @@ class UsuarioController extends Controller
         
         $imoveis = Imovel::where('usuario_id', $idUsuario)->get();
         
-        return view('usuario.imoveis_list', compact('imoveis'));
+        return view('imoveis_list', compact('imoveis'));
     }
 
     /**
@@ -49,11 +49,14 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //Função acessada pelo(s) administrador(es) para visualização do usuário
     public function show($id)
     {
-        $reg = Usuario::find($id);
+        $usuario = Usuario::find($id);
         
-        return view('administrador.usuario_view', compact('reg'));
+        $numImoveis = Imovel::where('usuario_id', $id)->count();
+        
+        return view('administrador.usuario_view', compact('usuario', 'numImoveis'));
     }
 
     /**
@@ -90,6 +93,11 @@ class UsuarioController extends Controller
         //
     }
     
+    /*
+    //Início das funções que são acessadas pelos administradores
+    */
+    
+    //Lista os usuários do sistema na área administrativa
     public function lista()
     {
         $usuarios = Usuario::all();
@@ -97,6 +105,25 @@ class UsuarioController extends Controller
         return view('administrador.usuarios_list', compact('usuarios'));
     }
     
+    //Lista os imóveis de um usuário na área administrativa
+    public function listaImoveisToAdmin($id)
+    {
+        $usuario = Usuario::find($id);
+        
+        $imoveis = Imovel::where('usuario_id', $id)->get();
+        
+        return view('imoveis_list', compact('imoveis', 'usuario'));
+    }
+    
+    //Permite a visualização de um imóvel na área administrativa
+    public function verImovelAdmin($id)
+    {
+        $imovel = Imovel::find($id);
+        
+        return view('imovel_view', compact('imovel'));
+    }
+    
+    //Altera o status do usuário (ativo ou inativo) na área administrativa
     public function alterarStatus($id)
     {
         $usuario = Usuario::find($id);
@@ -107,12 +134,17 @@ class UsuarioController extends Controller
             return redirect('usuarios/lista');
         }
     }
+    /*
+    //Término das funções que são acessadas pelos administradores
+    */
     
+    //Retorna o formulário de login do usuário
     public function login()
     {
         return view('auth.loginUsuario');
     }
     
+    //Faz a autenticação do usuário
     public function logar(Request $request)
     {
         $dados = ['email' => $request->get('email'), 'password' => $request->get('password')];
@@ -135,6 +167,7 @@ class UsuarioController extends Controller
         }
     }
     
+    //Desloga um usuário do sistema
     public function logout()
     {
         auth()->guard('usuario')->logout();

@@ -27,9 +27,9 @@
             @if ($pagamento->dataPagamento == null)
                 <td>---</td>
             @else
-                <td>{{date_format(new dateTime($pagamento->dataPagamento), 'd/m/y')}}</td>
+                <td>{{date_format(new dateTime($pagamento->dataPagamento), 'd/m/Y')}}</td>
             @endif
-            <td>{{date_format(new dateTime($pagamento->dataVencimento), 'd/m/y')}}</td>
+            <td>{{date_format(new dateTime($pagamento->dataVencimento), 'd/m/Y')}}</td>
             <td>
                 <a href="{{route('pagamentos.editar', $pagamento->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
             </td>
