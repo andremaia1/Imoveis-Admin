@@ -7,6 +7,8 @@ use App\Locacao;
 use App\Locatario;
 use App\Imovel;
 use App\Pagamento;
+use App\ItemHistorico;
+use App\Fiador;
 
 class LocacaoController extends Controller
 {
@@ -60,44 +62,55 @@ class LocacaoController extends Controller
         $imovel = Imovel::where('nome_apelido', $request->imovel)
                 ->where('usuario_id', $idUsuario)->get()->first();
         
+        //Cria o fiador do locatário
+        $fiador = Fiador::create([
+            'nome' => $request->nomeF,
+            'email' => $request->emailF,
+            'telefone' => $request->telefoneF,
+            'cpf' => $request->cpfF,
+            'rg' => $request->rgF
+        ]);
+        
         //Cria o novo locatário
         $locatario = Locatario::create([
             'nome' => $request->nome,
             'email' => $request->email,
             'telefone' => $request->telefone,
             'cpf' => $request->cpf,
-            'rg' => $request->rg
+            'rg' => $request->rg,
+            'fiador_id' => $fiador->id
         ]);
         
         //Cria a nova locação
         $locacao = Locacao::create([
             'valor' => $request->valor,
             'inicioContrato' => $request->dataInicio,
-            'terminoContrato' => $request->dataTermino,
             'imovel_id' => $imovel->id,
             'locatario_id' => $locatario->id
         ]);
         
         $imovel->status = 'Alugado';
         
-        //As linhas abaixo fazem o cálculo das datas para a geração dos pagamentos (parcelas)
-        $anoInicio = explode('-', $request->dataInicio)[0];
-        $mesInicio = explode('-', $request->dataInicio)[1];
+        $dados = $request->all();
         
-        $anoTermino = explode('-', $request->dataTermino)[0];        
-        $mesTermino = explode('-', $request->dataTermino)[1];
+        foreach ($dados as $n => $c) {
+            if (strpos($n, 'item') !== false) {
+                $item = ItemHistorico::create([
+                    'nome_item' => $c,
+                    'locacao_id' => $locacao->id
+                ]);
+            }
+        }
         
-        $quantMeses = (($anoTermino - $anoInicio) * 12) + ($mesTermino - $mesInicio) + 1;
+        $ano = explode('-', $request->dataInicio)[0];
+        $mes = explode('-', $request->dataInicio)[1];
         
-        $ano = $anoInicio;
-        $mes = $mesInicio;
+        $quantMeses = $request->numParc;
         
         if (explode('-', $request->dataInicio)[2] > $request->dia) {
             $mes++;
-            $quantMeses--;
         }
         
-        //Gera os pagamentos de acordo com as datas
         for ($i = 0; $i < $quantMeses; $i++) {
             
             $pagamento = Pagamento::create([
@@ -147,7 +160,11 @@ class LocacaoController extends Controller
         
         $locatario = Locatario::find($locacao->locatario_id);
         
-        return view('usuario.locacao_form', compact('locacao', 'locatario', 'opcao'));
+        $fiador = Fiador::find($locatario->fiador_id);
+        
+        $itens = ItemHistorico::where('locacao_id', $locacao->id)->get();
+        
+        return view('usuario.locacao_form', compact('locacao', 'locatario', 'fiador', 'itens', 'opcao'));
     }
 
     /**
@@ -163,13 +180,12 @@ class LocacaoController extends Controller
         
         $locatario = Locatario::find($locacao->locatario_id);
         
+        $fiador = Fiador::find($locatario->fiador_id);
+        
         $locacao->valor = $request->valor;
         
-        if ($request->dataInicio !== null) {
-            $locacao->inicioContrato = $request->dataInicio;
-        }
-        if ($request->dataTermino !== null) {
-            $locacao->terminoContrato = $request->dataTermino;
+        if ($request->isRenov) {
+            $locacao->ultimaRenovacao = date('Y-m-d');
         }
         
         $locatario->nome = $request->nome;
@@ -178,7 +194,38 @@ class LocacaoController extends Controller
         $locatario->cpf = $request->cpf;
         $locatario->rg = $request->rg;
         
-        if ($locacao->update() && $locatario->update()) {
+        $fiador->nome = $request->nomeF;
+        $fiador->email = $request->emailF;
+        $fiador->telefone = $request->telefoneF;
+        $fiador->cpf = $request->cpfF;
+        $fiador->rg = $request->rgF;
+        
+        $itens = ItemHistorico::where('locacao_id', $locacao->id)->get();
+        
+        $numItens = count($itens);
+        
+        $contItens = 0;
+        
+        $dados = $request->all();
+        
+        foreach ($dados as $n => $c) {
+            if (strpos($n, 'item') !== false) {
+                if ($contItens < $numItens) {
+                    $item_id = explode('_', $n)[1];
+                    $item = ItemHistorico::find($item_id);
+                    $item->nome_item = $c;
+                    $item->update();
+                } else {
+                    $item = ItemHistorico::create([
+                        'nome_item' => $c,
+                        'locacao_id' => $locacao->id
+                    ]);
+                }
+                $contItens++;
+            }
+        }
+        
+        if ($locacao->update() && $locatario->update() && $fiador->update()) {
             return redirect('/locacoes');
         }
         return redirect('/locacoes');
@@ -194,13 +241,13 @@ class LocacaoController extends Controller
     {
         $locacao = Locacao::find($id);
         
-        $locatario = Locatario::join('locacao', 'locatario.id', 'locacao.locatario_id')
-                ->where('locacao.id', $id)
-                ->select('locatario.*')->get()->first();
+        $locatario = Locatario::find($locacao->locatario_id);
+        
+        $fiador = Fiador::find($locatario->fiador_id);
         
         $locacao->imovel->status = 'Desocupado';
         
-        if ($locacao->imovel->update() && $locacao->delete() && $locatario->delete()) {
+        if ($locacao->imovel->update() && $locacao->delete() && $locatario->delete() && $fiador->delete()) {
             return redirect('/locacoes');
         }
         return redirect('/locacoes');

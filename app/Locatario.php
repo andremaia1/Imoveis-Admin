@@ -8,7 +8,7 @@ class Locatario extends Model
 {
     protected $table = 'locatario';
     
-    protected $fillable = ['nome', 'email', 'telefone', 'cpf', 'rg'];
+    protected $fillable = ['nome', 'email', 'telefone', 'cpf', 'rg', 'fiador_id'];
     
     public $timestamps = false;
 }

@@ -1,6 +1,10 @@
 @extends('usuario.barraUsuario')
 
 @section('conteudo')
+
+@php
+    $indiceValor = 0;
+@endphp
 <div class="container">
     &nbsp;
     <h2>Atualizar Pagamento</h2>
@@ -15,7 +19,7 @@
         </div>
         @if ($pagamento->dataPagamento == null)
             <div class="form-group">
-                <input type="button" class="btn btn-success" value="Pago" onClick="pago()" id="btnPago">
+                <input type="button" class="btn btn-success" value="Pago" onClick="pago()" id="btPago">
             </div>
         @endif
         <div class="form-group">
@@ -23,6 +27,16 @@
           <input type="date" class="form-control" id="dataVenc"
                  value="{{$pagamento->dataVencimento or old('dataVencimento')}}" name="dataVenc">
         </div>
+        @foreach($itens as $item)
+            <div class="form-group">
+            <label for="item_{{$item->id}}">{{$item->nome_item}}</label>
+            <input class="form-control" id="item_{{$item->id}}" name="item_{{$item->id}}"
+                   value="{{$valores[$indiceValor]->valor or old('valor')}}">
+            </div>
+        @php
+            $indiceValor++;
+        @endphp
+        @endforeach
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
   &nbsp;
@@ -46,7 +60,7 @@
         
         $("#dataPagto").val(ano+"-"+mes+"-"+dia);
         $("#dataPagto").attr("disabled", false);
-        $("#btnPago").attr("disabled", true);
+        $("#btPago").attr("disabled", true);
     }
 </script>
 @endsection
