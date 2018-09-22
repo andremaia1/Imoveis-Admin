@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Locacao;
 use App\Pagamento;
+use App\ItemHistorico;
+use App\ValorItem;
 
 class PagamentoController extends Controller
 {
@@ -26,11 +28,32 @@ class PagamentoController extends Controller
         return view('usuario.pagamentos_list', compact('pagamentos', 'locacao'));
     }
     
+    public function ver($id)
+    {
+        $pagamento = Pagamento::find($id);
+        
+        $itens = ItemHistorico::where('locacao_id', $pagamento->locacao->id)->get();
+        
+        $valores = ValorItem::where('pagamento_id', $id)->get();
+        
+        return view('usuario.pagamento_view', compact('pagamento', 'itens', 'valores'));
+    }
+    
     public function editar($id)
     {
         $pagamento = Pagamento::find($id);
         
-        return view('usuario.pagamento_form', compact('pagamento'));
+        $valores = ValorItem::where('pagamento_id', $id)->get();
+        
+        $numItens = count($valores);
+        
+        if ($numItens === 0) {
+            $itens = ItemHistorico::where('locacao_id', $pagamento->locacao->id)->get();
+        } else {
+            $itens = ItemHistorico::where('locacao_id', $pagamento->locacao->id)->take($numItens)->get();
+        }
+        
+        return view('usuario.pagamento_form', compact('pagamento', 'itens', 'valores'));
     }
     
     public function atualizar(Request $request, $id)
@@ -58,8 +81,67 @@ class PagamentoController extends Controller
             }
         }
         
+        $valores = ValorItem::where('pagamento_id', $id)->get();
+        
+        if (count($valores) === 0) {
+            
+            $dados = $request->all();
+            
+            foreach ($dados as $n => $c) {
+                if (strpos($n, 'item') !== false) {
+                    $valor = ValorItem::create([
+                        'valor' => $c,
+                        'pagamento_id' => $pagamento->id,
+                        'item_historico_id' => explode('_', $n)[1]
+                    ]);
+                }
+            }
+        } else {
+            
+            $dados = $request->all();
+            
+            foreach ($dados as $n => $c) {
+                if (strpos($n, 'item') !== false) {
+                    $item_id = explode('_', $n)[1];
+                    $valor = ValorItem::where('pagamento_id', $pagamento->id)
+                            ->where('item_historico_id', $item_id)->get()->first();
+                    $valor->valor = $c;
+                    $valor->update();
+                }
+            }
+        }
+        
         if ($pagamento->update()) {
             return redirect('/pagamentos/'.$pagamento->locacao_id);
+        }
+        return redirect('/pagamentos/'.$pagamento->locacao_id);
+    }
+    
+    public function gerar(Request $request, $idLocacao)
+    {
+        $pagamentos = Pagamento::where('locacao_id', $idLocacao)->get();
+        
+        $ultimo = $pagamentos->last();
+        
+        $ano = explode('-', $ultimo->dataVencimento)[0];
+        $mes = explode('-', $ultimo->dataVencimento)[1];
+        $dia = explode('-', $ultimo->dataVencimento)[2];
+        
+        for ($i = 0; $i < $request->numParc; $i++) {
+            
+            $mes++;
+            
+            if ($mes > 12) {
+                $mes = 1;
+                $ano++;
+            }
+            
+            $pagamento = Pagamento::create([
+                'dataVencimento' => $ano . '-' . $mes . '-' . $dia,
+                'dataPagamento' => null,
+                'status' => 'A Pagar',
+                'locacao_id' => $ultimo->locacao->id
+            ]);
         }
         return redirect('/pagamentos/'.$pagamento->locacao_id);
     }

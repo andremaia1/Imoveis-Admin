@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>app/Http/Controllers/LocacaoController.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>47</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/administrador/admin_form.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/imovel_form.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/config/auth.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Locacao.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/seeds/DatabaseSeeder.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/LocacaoController.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/locacao_form.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/ImovelController.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Imovel.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/locacoes_list.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/routes/web.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Providers/AppServiceProvider.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/AdministradorController.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/app/Http/Controllers/UsuarioController.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/pagamentos_list.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/migrations/2018_05_14_160624_create_usuario_table.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/migrations/2018_06_19_184546_create_locacao_table.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/imovel_view.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/resources/views/usuario/barraUsuario.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/.env</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/config/database.php</file>
-            <file>file:/C:/xampp/htdocs/Imoveis_Admin/database/migrations/2018_06_02_192145_create_imovel_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/pagamento_view.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacoes_list.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_09_18_124515_create_item_historico_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/pagamentos_list.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/routes/web.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacao_view.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/PagamentoController.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacao_form.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/config/app.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/pagamento_form.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/LocacaoController.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Locacao.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_09_20_020538_create_valor_item_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/ValorItem.php</file>
         </group>
     </open-files>
 </project-private>

@@ -47,8 +47,10 @@ Route::group(['middleware' => 'usuario'], function () {
         Route::resource('locacoes', 'LocacaoController');
         Route::get('locatario/ver/{id}', 'LocatarioController@show')->name('locatario.ver');
         Route::get('pagamentos/{id}', 'PagamentoController@lista')->name('pagamentos.lista');
+        Route::get('pagamento/ver/{id}', 'PagamentoController@ver')->name('pagamentos.ver');
         Route::get('pagamento/editar/{id}', 'PagamentoController@editar')->name('pagamentos.editar');
         Route::put('pagamento/atualizar/{id}', 'PagamentoController@atualizar')->name('pagamentos.atualizar');
+        Route::post('pagamentos/gerar/{id}', 'PagamentoController@gerar')->name('pagamentos.gerar');
         Route::resource('despesas', 'DespesaController');
     });
 });

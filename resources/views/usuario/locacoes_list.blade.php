@@ -22,7 +22,7 @@
           <th>Locatário</th>
           <th>Valor (R$)</th>
           <th>Data Início Contrato</th>
-          <th>Data Término Contrato</th>
+          <th>Última Renovação</th>
           <th>Ações</th>
       </tr>
     </thead>
@@ -34,7 +34,11 @@
           <td><a href="{{route('locatario.ver', $locacao->locatario->id)}}">{{$locacao->locatario->nome}}</a></td>
           <td>{{$locacao->valor}}</td>
           <td>{{date_format(new DateTime($locacao->inicioContrato), 'd/m/Y')}}</td>
-          <td>{{date_format(new DateTime($locacao->terminoContrato), 'd/m/Y')}}</td>
+          @if ($locacao->ultimaRenovacao == null)
+            <td>---</td>
+          @else
+            <td>{{date_format(new DateTime($locacao->ultimaRenovacao), 'd/m/Y')}}</td>
+          @endif
           <td>
             <a href="{{route('locacoes.show', $locacao->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
             <a href="{{route('locacoes.edit', $locacao->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
