@@ -25,6 +25,9 @@
       <a class="nav-link" href="{{route('locacoes.index')}}">Locações</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="{{route('condominios.index')}}">Condomínios</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="{{route('despesas.index')}}">Despesas</a>
     </li>
   </ul>

@@ -8,13 +8,18 @@ class Pagamento extends Model
 {
     protected $table = 'pagamento';
     
-    protected $fillable = ['dataVencimento', 'dataPagamento', 'status', 'locacao_id'];
+    protected $fillable = ['valor_total', 'dataVencimento', 'dataPagamento', 'status', 'locacao_id', 'condominio_id'];
     
     public $timestamps = false;
     
     public function locacao()
     {
         return $this->belongsTo('App\Locacao', 'locacao_id');
+    }
+    
+    public function condominio()
+    {
+        return $this->belongsTo('App\Condominio', 'condominio_id');
     }
     
     public function getStatusAttribute($value)

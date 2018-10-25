@@ -19,6 +19,7 @@
             {!! method_field('put') !!}
     @endif
         @csrf
+    <hr>
     <h4>Dados da Locação</h4>
     <div class="form-group">
       <label for="imovel">Imóvel:</label>
@@ -95,7 +96,7 @@
     </div>
     <div class="form-group">
       <label for="emailF">Email:</label>
-      <input type="text" class="form-control" id="emailF"
+      <input type="text" class="form-control" id="emailF" 
             value="{{$fiador->email or old('email')}}" placeholder="Email do fiador" name="emailF">
     </div>
     <div class="form-group">
@@ -120,7 +121,7 @@
             <h5>Itens</h5>
         </div>
         <div class="col-sm-1">
-            <button type="button" class="btn btn-primary" id="btAddItem"><i class="fas fa-plus"></i></button>
+            <button type="button" class="btn btn-primary" onClick="adicionarItem()"><i class="fas fa-plus"></i></button>
         </div>
     </div>
     @if ($opcao === 2)
@@ -152,7 +153,6 @@
 </div>
 <script>
     
-    var btAddItem = document.getElementById("btAddItem");
     var elementoRef;
     var indiceItem = 1;
     
@@ -180,8 +180,5 @@
         
         indiceItem++;
     }
-    
-    btAddItem.addEventListener("click", adicionarItem);
-    
 </script>
 @endsection

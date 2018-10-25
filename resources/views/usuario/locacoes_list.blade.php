@@ -30,7 +30,7 @@
       @foreach($locacoes as $locacao)
       <tr>
           <td><a href="{{route('imoveis.show', $locacao->imovel->id)}}">{{$locacao->imovel->nome_apelido}}</a></td>
-          <td><a href="{{route('pagamentos.lista', $locacao->id)}}">Ver Pagamentos</a></td>
+          <td><a href="{{route('pagamentos.lista', ['id' => $locacao->id, 'opcao' => 1])}}">Ver Pagamentos</a></td>
           <td><a href="{{route('locatario.ver', $locacao->locatario->id)}}">{{$locacao->locatario->nome}}</a></td>
           <td>{{$locacao->valor}}</td>
           <td>{{date_format(new DateTime($locacao->inicioContrato), 'd/m/Y')}}</td>

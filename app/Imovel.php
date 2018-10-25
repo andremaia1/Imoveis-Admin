@@ -8,7 +8,7 @@ class Imovel extends Model
 {
     protected $table = 'imovel';
     
-    protected $fillable = ['nome_apelido', 'descricao', 'tipo', 'status', 'areaConstr', 'areaTotal', 'usuario_id'];
+    protected $fillable = ['nome_apelido', 'descricao', 'tipo', 'status', 'areaConstr', 'areaTotal', 'dataCompra', 'usuario_id'];
     
     public $timestamps = false;
 

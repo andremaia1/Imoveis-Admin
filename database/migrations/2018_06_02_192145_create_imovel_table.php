@@ -21,6 +21,7 @@ class CreateImovelTable extends Migration
             $table->integer('status');
             $table->double('areaConstr');
             $table->double('areaTotal');
+            $table->date('dataCompra');
             $table->unsignedInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('usuario');
         });
