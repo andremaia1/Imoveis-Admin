@@ -15,6 +15,7 @@ class CreatePagamentoTable extends Migration
     {
         Schema::create('pagamento', function (Blueprint $table) {
             $table->increments('id');
+            $table->double('valor_total');
             $table->date('dataVencimento');
             $table->date('dataPagamento')->nullable();
             $table->integer('status');

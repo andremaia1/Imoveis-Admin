@@ -5,27 +5,47 @@
             <url>app/Http/Controllers/LocacaoController.php</url>
             <bookmark id="1">
                 <name/>
-                <line>47</line>
+                <line>48</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/pagamento_view.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_07_03_043226_add_locatario_id_to_locacao_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Imobiliaria.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/imoveis_list.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/despesas_list.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/ValorItemController.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_10_08_032434_create_condominio_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacao_form.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/CondominioController.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Pagamento.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Locacao.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Imovel.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/ValorItem.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacoes_list.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/ItemHistorico.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/seeds/AdministradorTableSeeder.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/condominios_list.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Condominio.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/seeds/UsuarioTableSeeder.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_10_08_022725_create_imobiliaria_table.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_09_18_124515_create_item_historico_table.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/pagamentos_list.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_07_03_023706_create_locatario_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/config/database.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/barraUsuario.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/routes/web.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacao_view.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/PagamentoController.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacao_form.blade.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/config/app.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/pagamento_form.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_10_08_232444_add_condominio_id_to_pagamento_table.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/LocacaoController.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Locacao.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_09_20_020538_create_valor_item_table.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/ValorItem.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_10_08_232545_add_condominio_id_to_item_historico_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Locatario.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_06_02_192145_create_imovel_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_07_04_024125_create_pagamento_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_09_21_143218_add_fiador_id_to_locatario_table.php</file>
         </group>
     </open-files>
 </project-private>

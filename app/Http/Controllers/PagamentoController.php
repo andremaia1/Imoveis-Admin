@@ -5,16 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Locacao;
 use App\Pagamento;
+use App\Condominio;
 use App\ItemHistorico;
 use App\ValorItem;
 
 class PagamentoController extends Controller
 {
-    public function lista($id)
+    public function lista($id, $opcao)
     {
-        $locacao = Locacao::find($id);
+        $varRetorno = '';
         
-        $pagamentos = Pagamento::where('locacao_id', $id)->get();
+        if ($opcao == 1) {
+            $locacao = Locacao::find($id);
+            $pagamentos = Pagamento::where('locacao_id', $id)->get();
+            $varRetorno = 'locacao';
+        } else {
+            $condominio = Condominio::find($id);
+            $pagamentos = Pagamento::where('condominio_id', $id)->get();
+            $varRetorno = 'condominio';
+        }
         
         $data = date('Y-m-d');
         
@@ -25,7 +34,7 @@ class PagamentoController extends Controller
             }
         }
         
-        return view('usuario.pagamentos_list', compact('pagamentos', 'locacao'));
+        return view('usuario.pagamentos_list', compact('pagamentos', 'opcao', $varRetorno));
     }
     
     public function ver($id)
@@ -39,24 +48,22 @@ class PagamentoController extends Controller
         return view('usuario.pagamento_view', compact('pagamento', 'itens', 'valores'));
     }
     
-    public function editar($id)
+    public function editar($id, $opcao)
     {
         $pagamento = Pagamento::find($id);
         
         $valores = ValorItem::where('pagamento_id', $id)->get();
-        
-        $numItens = count($valores);
-        
-        if ($numItens === 0) {
+
+        if ($opcao == 1) {
             $itens = ItemHistorico::where('locacao_id', $pagamento->locacao->id)->get();
         } else {
-            $itens = ItemHistorico::where('locacao_id', $pagamento->locacao->id)->take($numItens)->get();
+            $itens = ItemHistorico::where('condominio_id', $pagamento->condominio->id)->get();
         }
         
-        return view('usuario.pagamento_form', compact('pagamento', 'itens', 'valores'));
+        return view('usuario.pagamento_form', compact('pagamento', 'itens', 'valores', 'opcao'));
     }
     
-    public function atualizar(Request $request, $id)
+    public function atualizar(Request $request, $id, $opcao)
     {
         $pagamento = Pagamento::find($id);
         
@@ -111,15 +118,26 @@ class PagamentoController extends Controller
             }
         }
         
-        if ($pagamento->update()) {
-            return redirect('/pagamentos/'.$pagamento->locacao_id);
+        if ($opcao == 1) {
+            $pagamento->valor_total = $pagamento->locacao->valor + ValorItem::where('pagamento_id', $pagamento->id)->sum('valor');
+        } else {
+            $pagamento->valor_total = $pagamento->condominio->valor + ValorItem::where('pagamento_id', $pagamento->id)->sum('valor');
         }
-        return redirect('/pagamentos/'.$pagamento->locacao_id);
+        
+        if ($pagamento->update()) {
+            if ($opcao == 1) {
+                return redirect('/pagamentos/'.$pagamento->locacao_id.'/'.$opcao);
+            } else {
+                return redirect('/pagamentos/'.$pagamento->condominio_id.'/'.$opcao);
+            }
+        }
     }
     
-    public function gerar(Request $request, $idLocacao)
+    public function gerar(Request $request, $id, $opcao)
     {
-        $pagamentos = Pagamento::where('locacao_id', $idLocacao)->get();
+        $varFK = ($opcao == 1) ? 'locacao_id' : 'condominio_id';
+        
+        $pagamentos = Pagamento::where($varFK, $id)->get();
         
         $ultimo = $pagamentos->last();
         
@@ -136,14 +154,27 @@ class PagamentoController extends Controller
                 $ano++;
             }
             
-            $pagamento = Pagamento::create([
-                'dataVencimento' => $ano . '-' . $mes . '-' . $dia,
-                'dataPagamento' => null,
-                'status' => 'A Pagar',
-                'locacao_id' => $ultimo->locacao->id
-            ]);
+            if ($opcao == 1) {
+                $pagamento = Pagamento::create([
+                    'dataVencimento' => $ano . '-' . $mes . '-' . $dia,
+                    'dataPagamento' => null,
+                    'status' => 'A Pagar',
+                    'locacao_id' => $ultimo->locacao->id
+                ]);
+            } else {
+                $pagamento = Pagamento::create([
+                    'dataVencimento' => $ano . '-' . $mes . '-' . $dia,
+                    'dataPagamento' => null,
+                    'status' => 'A Pagar',
+                    'condominio_id' => $ultimo->condominio->id
+                ]);
+            }
         }
-        return redirect('/pagamentos/'.$pagamento->locacao_id);
+        if ($opcao == 1) {
+            return redirect('/pagamentos/'.$pagamento->locacao_id.'/'.$opcao);
+        } else {
+            return redirect('/pagamentos/'.$pagamento->condominio_id.'/'.$opcao);
+        }
     }
     
     public function dataMaior($data1, $data2)

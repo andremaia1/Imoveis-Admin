@@ -9,7 +9,7 @@
     &nbsp;
     <h2>Atualizar Pagamento</h2>
     &nbsp;
-    <form method="POST" action="{{route('pagamentos.atualizar', $pagamento->id)}}">
+    <form method="POST" action="{{route('pagamentos.atualizar', ['id' => $pagamento->id, 'opcao' => $opcao])}}">
         {!! method_field('put') !!}
         @csrf
         <div class="form-group">
@@ -29,9 +29,9 @@
         </div>
         @foreach($itens as $item)
             <div class="form-group">
-            <label for="item_{{$item->id}}">{{$item->nome_item}}</label>
-            <input class="form-control" id="item_{{$item->id}}" name="item_{{$item->id}}"
-                   value="{{$valores[$indiceValor]->valor or old('valor')}}">
+                <label for="item_{{$item->id}}">{{$item->nome_item}}</label>
+                <input class="form-control" id="item_{{$item->id}}" name="item_{{$item->id}}"
+                       value="{{$valores[$indiceValor]->valor or old('valor')}}">
             </div>
         @php
             $indiceValor++;

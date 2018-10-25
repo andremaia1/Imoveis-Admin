@@ -4,7 +4,7 @@
 
 &nbsp;
 @if (auth()->guard('usuario')->getUser() !== null)
-    <h4>Olá {{Auth::user()->nome}}, seja bem-vindo(a)!</h4>
+    <h4>Olá {{Auth::user()->nome}}, seja Bem-Vindo(a)!</h4>
 @endif
 &nbsp;
 <div class="row">
@@ -32,6 +32,7 @@
           <th>Status</th>
           <th>Área Construída (m²)</th>
           <th>Área Total (m²)</th>
+          <th>Data da Compra</th>
           <th>Ações</th>
       </tr>
     </thead>
@@ -43,6 +44,7 @@
             <td>{{$imovel->status}}</td>
             <td>{{$imovel->areaConstr}}</td>
             <td>{{$imovel->areaTotal}}</td>
+            <td>{{date_format(new DateTime($imovel->dataCompra), 'd/m/Y')}}</td>
             @if (auth()->guard('usuario')->getUser() !== null)
             <td>
                 <a href="{{route('imoveis.show', $imovel->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
