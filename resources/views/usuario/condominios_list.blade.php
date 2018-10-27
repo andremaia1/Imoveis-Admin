@@ -19,7 +19,7 @@
       <tr>
           <th>Imóvel</th>
           <th>Imobiliária</th>
-          <th>Valor (R$)</th>
+          <th>Pagamento</th>
           <th>Ações</th>
       </tr>
     </thead>
@@ -27,7 +27,7 @@
       @foreach($condominios as $condominio)
       <tr>
           <td><a href="{{route('imoveis.show', $condominio->imovel->id)}}">{{$condominio->imovel->nome_apelido}}</a></td>
-          <td><a href="#">{{$condominio->imobiliaria->nome}}</a></td>
+          <td><a href="{{route('imobiliaria.ver', $condominio->imobiliaria->id)}}">{{$condominio->imobiliaria->nome}}</a></td>
           <td><a href="{{route('pagamentos.lista', ['id' => $condominio->id, 'opcao' => 2])}}">Ver Pagamentos</a></td>
           <td>
             <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>

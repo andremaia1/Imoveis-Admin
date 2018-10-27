@@ -121,7 +121,7 @@ class PagamentoController extends Controller
         if ($opcao == 1) {
             $pagamento->valor_total = $pagamento->locacao->valor + ValorItem::where('pagamento_id', $pagamento->id)->sum('valor');
         } else {
-            $pagamento->valor_total = $pagamento->condominio->valor + ValorItem::where('pagamento_id', $pagamento->id)->sum('valor');
+            $pagamento->valor_total = ValorItem::where('pagamento_id', $pagamento->id)->sum('valor');
         }
         
         if ($pagamento->update()) {
@@ -139,11 +139,28 @@ class PagamentoController extends Controller
         
         $pagamentos = Pagamento::where($varFK, $id)->get();
         
-        $ultimo = $pagamentos->last();
+        $dataInicial = null;
         
-        $ano = explode('-', $ultimo->dataVencimento)[0];
-        $mes = explode('-', $ultimo->dataVencimento)[1];
-        $dia = explode('-', $ultimo->dataVencimento)[2];
+        if ($opcao == 1) {
+            $locacao = Locacao::find($id);
+        }
+        
+        if (count($pagamentos) > 0) {
+            $ultimo = $pagamentos->last();
+            $dataInicial = $ultimo->dataVencimento;
+        } else {
+            if ($opcao == 1) {
+                $dataInicial = $locacao->inicioContrato;
+            } else {
+                $condominio = Condominio::find($id);
+                $imovel = Imovel::find($condominio->imovel_id);
+                $dataInicial = $imovel->dataCompra;
+            }
+        }
+        
+        $ano = explode('-', $dataInicial)[0];
+        $mes = explode('-', $dataInicial)[1];
+        $dia = explode('-', $dataInicial)[2];
         
         for ($i = 0; $i < $request->numParc; $i++) {
             
@@ -156,17 +173,19 @@ class PagamentoController extends Controller
             
             if ($opcao == 1) {
                 $pagamento = Pagamento::create([
+                    'valor_total' => $locacao->valor,
                     'dataVencimento' => $ano . '-' . $mes . '-' . $dia,
                     'dataPagamento' => null,
                     'status' => 'A Pagar',
-                    'locacao_id' => $ultimo->locacao->id
+                    'locacao_id' => $id
                 ]);
             } else {
                 $pagamento = Pagamento::create([
+                    'valor_total' => 0,
                     'dataVencimento' => $ano . '-' . $mes . '-' . $dia,
                     'dataPagamento' => null,
                     'status' => 'A Pagar',
-                    'condominio_id' => $ultimo->condominio->id
+                    'condominio_id' => $id
                 ]);
             }
         }

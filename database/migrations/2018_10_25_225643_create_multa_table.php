@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagamentoTable extends Migration
+class CreateMultaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreatePagamentoTable extends Migration
      */
     public function up()
     {
-        Schema::create('pagamento', function (Blueprint $table) {
+        Schema::create('multa', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('valor_total');
-            $table->date('dataVencimento');
-            $table->date('dataPagamento')->nullable();
+            $table->double('valor');
             $table->integer('status');
+            $table->date('dataPagamento')->nullable();
             $table->unsignedInteger('locacao_id')->nullable();
-            $table->foreign('locacao_id')->references('id')->on('locacao')->onDelete('cascade');
+            $table->unsignedInteger('pagamento_id')->nullable();
+            $table->foreign('locacao_id')->references('id')->on('locacao')->onDelete('set null');
+            $table->foreign('pagamento_id')->references('id')->on('pagamento')->onDelete('set null');
         });
     }
 
@@ -31,6 +32,6 @@ class CreatePagamentoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pagamento');
+        Schema::dropIfExists('multa');
     }
 }

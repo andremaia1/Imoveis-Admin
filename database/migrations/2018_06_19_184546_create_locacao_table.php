@@ -18,6 +18,7 @@ class CreateLocacaoTable extends Migration
             $table->double('valor');
             $table->date('inicioContrato');
             $table->date('ultimaRenovacao')->nullable();
+            $table->integer('prazoMinContrato');
             $table->unsignedInteger('imovel_id');
             $table->foreign('imovel_id')->references('id')->on('imovel')->onDelete('cascade');
         });

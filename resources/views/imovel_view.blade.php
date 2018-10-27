@@ -20,6 +20,7 @@
         <p><b>Status: </b>{{$imovel->status}}</p>
         <p><b>Área Construída (m²): </b>{{$imovel->areaConstr}}</p>
         <p><b>Área Total (m²): </b>{{$imovel->areaTotal}}</p>
+        <p><b>Data da Compra: </b>{{date_format(new DateTime($imovel->dataCompra), 'd/m/Y')}}</p>
         <hr style="background-color:gainsboro">
     </div>
 @endsection
