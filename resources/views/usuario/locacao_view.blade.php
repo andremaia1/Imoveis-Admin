@@ -13,9 +13,11 @@
         <hr style="background-color:gainsboro">
         <p><b>Imóvel: </b>{{$locacao->imovel->nome_apelido}}</p>
         <p><b>Locatário: </b>{{$locacao->locatario->nome}}</p>
+        <p><b>Fiador do Locatário: </b>{{$locacao->locatario->fiador->nome}}</p>
         <p><b>Valor (R$): </b>{{$locacao->valor}}</p>
         <p><b>Data de Início do Contrato: </b>{{date_format(new DateTime($locacao->inicioContrato), 'd/m/Y')}}</p>
         <p><b>Data da Última Renovação do Contrato: </b>{{date_format(new DateTime($locacao->ultimaRenovacao), 'd/m/Y')}}</p>
+        <p><b>Prazo Mínimo do Contrato (meses): </b>{{$locacao->prazoMinContrato}}</p>
         <hr style="background-color:gainsboro">
     </div>
 @endsection

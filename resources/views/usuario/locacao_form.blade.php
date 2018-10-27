@@ -48,6 +48,11 @@
       <input type="date" class="form-control" id="dataInicio" <?php if ($opcao === 2) echo "disabled";?>
              value="{{$locacao->inicioContrato or old('inicioContrato')}}" name="dataInicio">
     </div>
+    <div class="form-group">
+      <label for="prazoMinContrato">Prazo Mínimo do Contrato (meses):</label>
+      <input type="text" class="form-control" id="prazoMinContrato"
+             value="{{$locacao->prazoMinContrato or old('prazoMinContrato')}}" placeholder="Prazo Mínimo" name="prazoMinContrato">
+    </div>
     @if ($opcao === 2)
         <div class="form-group">
           <label for="ultimaRenov">Data Última Renovação:</label>

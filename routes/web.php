@@ -52,7 +52,9 @@ Route::group(['middleware' => 'usuario'], function () {
         Route::put('pagamento/atualizar/{id}/{opcao}', 'PagamentoController@atualizar')->name('pagamentos.atualizar');
         Route::post('pagamentos/gerar/{id}/{opcao}', 'PagamentoController@gerar')->name('pagamentos.gerar');
         Route::resource('condominios', 'CondominioController');
+        Route::get('imobiliaria/ver/{id}', 'ImobiliariaController@ver')->name('imobiliaria.ver');
         Route::resource('despesas', 'DespesaController');
+        Route::resource('multas', 'MultaController');
     });
 });
 

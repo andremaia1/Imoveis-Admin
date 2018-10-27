@@ -89,6 +89,7 @@ class ImovelController extends Controller
             for ($i = 0; $i < $quantMeses; $i++) {
 
                 $pagamento = Pagamento::create([
+                    'valor_total' => 0,
                     'dataVencimento' => $ano . '-' . $mes . '-' . $request->dia,
                     'dataPagamento' => null,
                     'status' => 'A Pagar',

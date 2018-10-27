@@ -16,7 +16,7 @@ class CreateItemHistoricoTable extends Migration
         Schema::create('item_historico', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome_item');
-            $table->unsignedInteger('locacao_id');
+            $table->unsignedInteger('locacao_id')->nullable();
             $table->foreign('locacao_id')->references('id')->on('locacao')->onDelete('cascade');
         });
     }

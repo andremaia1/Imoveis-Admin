@@ -8,7 +8,7 @@ class Locacao extends Model
 {
     protected $table = 'locacao';
     
-    protected $fillable = ['valor', 'inicioContrato', 'ultimaRenovacao', 'imovel_id', 'locatario_id'];
+    protected $fillable = ['valor', 'inicioContrato', 'ultimaRenovacao', 'prazoMinContrato', 'imovel_id', 'locatario_id'];
     
     public $timestamps = false;
     

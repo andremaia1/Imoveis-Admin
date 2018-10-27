@@ -23,7 +23,7 @@ class LocacaoController extends Controller
         
         //Busca as locações do usuário atual
         $locacoes = Locacao::join('imovel', 'imovel_id', 'imovel.id')
-                ->where('imovel.usuario_id', $idUsuario)
+                    ->where('imovel.usuario_id', $idUsuario)
                 ->select('locacao.*')->get();
         
         return view('usuario.locacoes_list', compact('locacoes'));
@@ -85,6 +85,7 @@ class LocacaoController extends Controller
         $locacao = Locacao::create([
             'valor' => $request->valor,
             'inicioContrato' => $request->dataInicio,
+            'prazoMinContrato' => $request->prazoMinContrato,
             'imovel_id' => $imovel->id,
             'locatario_id' => $locatario->id
         ]);
@@ -114,6 +115,7 @@ class LocacaoController extends Controller
         for ($i = 0; $i < $quantMeses; $i++) {
             
             $pagamento = Pagamento::create([
+                'valor_total' => $locacao->valor,
                 'dataVencimento' => $ano . '-' . $mes . '-' . $request->dia,
                 'dataPagamento' => null,
                 'status' => 'A Pagar',
