@@ -15,13 +15,11 @@ class CreateEmpresaTable extends Migration
     {
         Schema::create('empresa', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome_fantasia');
+            $table->string('nome');
             $table->string('email');
             $table->string('telefone');
             $table->string('enderecoSite');
             $table->string('cnpj');
-            $table->unsignedInteger('locacao_id');
-            $table->foreign('locacao_id')->references('id')->on('locacao');
         });
     }
 

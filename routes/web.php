@@ -55,6 +55,7 @@ Route::group(['middleware' => 'usuario'], function () {
         Route::get('imobiliaria/ver/{id}', 'ImobiliariaController@ver')->name('imobiliaria.ver');
         Route::resource('despesas', 'DespesaController');
         Route::resource('multas', 'MultaController');
+        Route::get('empresa/ver/{id}', 'EmpresaController@ver')->name('empresa.ver');
     });
 });
 

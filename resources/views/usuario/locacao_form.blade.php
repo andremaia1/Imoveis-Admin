@@ -18,7 +18,7 @@
         <form method="POST" action="{{route('locacoes.update', $locacao->id)}}">
             {!! method_field('put') !!}
     @endif
-        @csrf
+    @csrf
     <hr>
     <h4>Dados da Locação</h4>
     <div class="form-group">
@@ -68,56 +68,100 @@
     <hr>
     <h4>Dados do Locatário</h4>
     <div class="form-group">
-      <label for="nome">Nome:</label>
-      <input type="text" class="form-control" id="nome" 
-             value="{{$locatario->nome or old('nome')}}" placeholder="Nome do locatário" name="nome">
+        <label for="tipo">Tipo de Locatário:</label>
+        <select class="form-control" id="tipo" name="tipo" onChange="alterarForm()">
+            <option>Pessoa Física</option>
+            <option>Pessoa Jurídica (empresa)</option>
+        </select>
     </div>
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="text" class="form-control" id="email"
-            value="{{$locatario->email or old('email')}}" placeholder="Email do locatário" name="email">
+    @if ($opcao === 1 || ($opcao === 2 && $locacao->locatario !== null))
+        <div id="formPessoa">
+    @else
+        <div style="display : none" id="formPessoa">
+    @endif
+        <div class="form-group">
+          <label for="nome">Nome:</label>
+          <input type="text" class="form-control" id="nome" 
+                 value="{{$locatario->nome or old('nome')}}" placeholder="Nome do locatário" name="nome">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="text" class="form-control" id="email"
+                value="{{$locatario->email or old('email')}}" placeholder="Email do locatário" name="email">
+        </div>
+        <div class="form-group">
+            <label for="telefone">Telefone:</label>
+            <input type="text" class="form-control" id="telefone" 
+                value="{{$locatario->telefone or old('telefone')}}" placeholder="Telefone do locatário" name="telefone">
+        </div>
+        <div class="form-group">
+            <label for="cpf">CPF:</label>
+            <input type="text" class="form-control" id="cpf" 
+                value="{{$locatario->cpf or old('cpf')}}" placeholder="CPF do locatário" name="cpf">
+        </div>
+        <div class="form-group">
+            <label for="rg">RG:</label>
+            <input type="text" class="form-control" id="rg" 
+                value="{{$locatario->rg or old('rg')}}" placeholder="RG do locatário" name="rg">
+        </div>
+        <hr>
+        <h4>Dados do Fiador</h4>
+        <div class="form-group">
+          <label for="nomeF">Nome:</label>
+          <input type="text" class="form-control" id="nomeF" 
+                 value="{{$fiador->nome or old('nome')}}" placeholder="Nome do fiador" name="nomeF">
+        </div>
+        <div class="form-group">
+          <label for="emailF">Email:</label>
+          <input type="text" class="form-control" id="emailF" 
+                value="{{$fiador->email or old('email')}}" placeholder="Email do fiador" name="emailF">
+        </div>
+        <div class="form-group">
+            <label for="telefoneF">Telefone:</label>
+            <input type="text" class="form-control" id="telefoneF" 
+                value="{{$fiador->telefone or old('telefone')}}" placeholder="Telefone do fiador" name="telefoneF">
+        </div>
+        <div class="form-group">
+            <label for="cpfF">CPF:</label>
+            <input type="text" class="form-control" id="cpfF" 
+                value="{{$fiador->cpf or old('cpf')}}" placeholder="CPF do fiador" name="cpfF">
+        </div>
+        <div class="form-group">
+            <label for="rgF">RG:</label>
+            <input type="text" class="form-control" id="rgF" 
+                value="{{$fiador->rg or old('rg')}}" placeholder="RG do fiador" name="rgF">
+        </div>
     </div>
-    <div class="form-group">
-        <label for="telefone">Telefone:</label>
-        <input type="text" class="form-control" id="telefone" 
-            value="{{$locatario->telefone or old('telefone')}}" placeholder="Telefone do locatário" name="telefone">
-    </div>
-    <div class="form-group">
-        <label for="cpf">CPF:</label>
-        <input type="text" class="form-control" id="cpf" 
-            value="{{$locatario->cpf or old('cpf')}}" placeholder="CPF do locatário" name="cpf">
-    </div>
-    <div class="form-group">
-        <label for="rg">RG:</label>
-        <input type="text" class="form-control" id="rg" 
-            value="{{$locatario->rg or old('rg')}}" placeholder="RG do locatário" name="rg">
-    </div>
-    <hr>
-    <h4>Dados do Fiador</h4>
-    <div class="form-group">
-      <label for="nomeF">Nome:</label>
-      <input type="text" class="form-control" id="nomeF" 
-             value="{{$fiador->nome or old('nome')}}" placeholder="Nome do fiador" name="nomeF">
-    </div>
-    <div class="form-group">
-      <label for="emailF">Email:</label>
-      <input type="text" class="form-control" id="emailF" 
-            value="{{$fiador->email or old('email')}}" placeholder="Email do fiador" name="emailF">
-    </div>
-    <div class="form-group">
-        <label for="telefoneF">Telefone:</label>
-        <input type="text" class="form-control" id="telefoneF" 
-            value="{{$fiador->telefone or old('telefone')}}" placeholder="Telefone do fiador" name="telefoneF">
-    </div>
-    <div class="form-group">
-        <label for="cpfF">CPF:</label>
-        <input type="text" class="form-control" id="cpfF" 
-            value="{{$fiador->cpf or old('cpf')}}" placeholder="CPF do fiador" name="cpfF">
-    </div>
-    <div class="form-group">
-        <label for="rgF">RG:</label>
-        <input type="text" class="form-control" id="rgF" 
-            value="{{$fiador->rg or old('rg')}}" placeholder="RG do fiador" name="rgF">
+    @if ($opcao === 1 || ($opcao === 2 && $locacao->empresa === null))
+        <div style="display : none" id="formEmpresa">
+    @else
+        <div id="formEmpresa">
+    @endif
+        <div class="form-group">
+          <label for="nomeEmpresa">Nome:</label>
+          <input type="text" class="form-control" id="nomeEmpresa" 
+                 value="{{$empresa->nome or old('nome')}}" placeholder="Nome da empresa" name="nomeEmpresa">
+        </div>
+        <div class="form-group">
+          <label for="emailEmpresa">Email:</label>
+          <input type="text" class="form-control" id="emailEmpresa"
+                value="{{$empresa->email or old('email')}}" placeholder="Email da empresa" name="emailEmpresa">
+        </div>
+        <div class="form-group">
+            <label for="telefoneEmpresa">Telefone:</label>
+            <input type="text" class="form-control" id="telefoneEmpresa" 
+                value="{{$empresa->telefone or old('telefone')}}" placeholder="Telefone da empresa" name="telefoneEmpresa">
+        </div>
+        <div class="form-group">
+            <label for="enderecoSite">Endereço do Site:</label>
+            <input type="text" class="form-control" id="enderecoSite" 
+                value="{{$empresa->enderecoSite or old('enderecoSite')}}" placeholder="Endereço do Site" name="enderecoSite">
+        </div>
+        <div class="form-group">
+            <label for="cnpj">CNPJ:</label>
+            <input type="text" class="form-control" id="cnpj" 
+                value="{{$empresa->cnpj or old('cnpj')}}" placeholder="CNPJ da empresa" name="cnpj">
+        </div>
     </div>
     <hr>
     <h4>Dados do Pagamento</h4>
@@ -152,11 +196,17 @@
                  value="6" placeholder="Número de Parcelas" name="numParc">
         </div>
     @endif
+    <input type="hidden" name="auxLocat" id="auxLocat" value="p">
     <button type="submit" class="btn btn-primary" id="btEnviar">Enviar</button>
   </form>
   &nbsp;
 </div>
 <script>
+    
+    var selectTipo = document.getElementById("tipo");
+    var formPessoa = document.getElementById("formPessoa");
+    var formEmpresa = document.getElementById("formEmpresa");
+    var auxLocat = document.getElementById("auxLocat");
     
     var elementoRef;
     var indiceItem = 1;
@@ -166,6 +216,19 @@
     } else {
         elementoRef = document.getElementById("btEnviar");
         indiceItem = {{$indiceItem}};
+    }
+    
+    function alterarForm() {
+        
+        if (selectTipo.selectedIndex === 0) {
+            formPessoa.style.display = "block";
+            formEmpresa.style.display = "none";
+            auxLocat.value = "p";
+        } else {
+            formEmpresa.style.display = "block";
+            formPessoa.style.display = "none";
+            auxLocat.value = "e";
+        }
     }
     
     function adicionarItem() {

@@ -1,7 +1,6 @@
 @extends('usuario.barraUsuario')
 
 @section('conteudo')
-
 &nbsp;
 <div class="row">
     <div class="col-sm-11">
@@ -31,7 +30,11 @@
       <tr>
           <td><a href="{{route('imoveis.show', $locacao->imovel->id)}}">{{$locacao->imovel->nome_apelido}}</a></td>
           <td><a href="{{route('pagamentos.lista', ['id' => $locacao->id, 'opcao' => 1])}}">Ver Pagamentos</a></td>
-          <td><a href="{{route('locatario.ver', $locacao->locatario->id)}}">{{$locacao->locatario->nome}}</a></td>
+          @if ($locacao->locatario != null)
+            <td><a href="{{route('locatario.ver', $locacao->locatario->id)}}">{{$locacao->locatario->nome}}</a></td>
+          @else
+            <td><a href="{{route('empresa.ver', $locacao->empresa->id)}}">{{$locacao->empresa->nome}}</a></td>
+          @endif
           <td>{{$locacao->valor}}</td>
           <td>{{date_format(new DateTime($locacao->inicioContrato), 'd/m/Y')}}</td>
           @if ($locacao->ultimaRenovacao == null)
