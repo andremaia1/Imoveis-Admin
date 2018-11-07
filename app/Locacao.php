@@ -8,7 +8,7 @@ class Locacao extends Model
 {
     protected $table = 'locacao';
     
-    protected $fillable = ['valor', 'inicioContrato', 'ultimaRenovacao', 'prazoMinContrato', 'imovel_id', 'locatario_id'];
+    protected $fillable = ['valor', 'inicioContrato', 'ultimaRenovacao', 'prazoMinContrato', 'imovel_id', 'locatario_id', 'empresa_id'];
     
     public $timestamps = false;
     
@@ -20,5 +20,10 @@ class Locacao extends Model
     public function locatario()
     {
         return $this->belongsTo('App\Locatario', 'locatario_id');
+    }
+    
+    public function empresa()
+    {
+        return $this->belongsTo('App\Empresa', 'empresa_id');
     }
 }

@@ -149,7 +149,7 @@
       <input type="date" class="form-control" id="dataCompra" <?php if ($opcao === 2) echo "disabled";?>
              value="" name="dataCompra">
     </div>
-    <input type="hidden" name="auxCondom" id="auxCondom" value="">
+    <input type="hidden" name="auxCondom" id="auxCondom" value="off">
     <button type="submit" class="btn btn-primary">Enviar</button>
   </form>
   &nbsp;

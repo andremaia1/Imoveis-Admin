@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddLocatarioIdToLocacaoTable extends Migration
+class AddEmpresaIdToLocacaoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddLocatarioIdToLocacaoTable extends Migration
     public function up()
     {
         Schema::table('locacao', function (Blueprint $table) {
-            $table->unsignedInteger('locatario_id')->nullable();
-            $table->foreign('locatario_id')->references('id')->on('locatario');
+            $table->unsignedInteger('empresa_id')->nullable();
+            $table->foreign('empresa_id')->references('id')->on('empresa');
         });
     }
 
@@ -26,8 +26,6 @@ class AddLocatarioIdToLocacaoTable extends Migration
      */
     public function down()
     {
-        Schema::table('locacao', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }
