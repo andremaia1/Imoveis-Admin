@@ -29,6 +29,8 @@ Route::group(['middleware' => 'administrador'], function () {
         Route::get('/usuarios/alterar_status/{id}', 'UsuarioController@alterarStatus')->name('usuarios.alterar_status');
         Route::get('/usuarios/listar_imoveis/{id}', 'UsuarioController@listaImoveisToAdmin')->name('usuarios.listar_imoveis');
         Route::get('/usuarios/ver_imovel/{id}', 'UsuarioController@verImovelAdmin')->name('usuarios.ver_imovel');
+        Route::resource('relatErros', 'RelatorioErroController');
+        Route::get('/relatErros/alterar_status/{id}', 'RelatorioErroController@alterarStatus')->name('relatErros.alterar_status');
     });
 });
 
@@ -56,6 +58,8 @@ Route::group(['middleware' => 'usuario'], function () {
         Route::resource('despesas', 'DespesaController');
         Route::resource('multas', 'MultaController');
         Route::get('empresa/ver/{id}', 'EmpresaController@ver')->name('empresa.ver');
+        Route::get('relatErro/criar', 'RelatorioErroController@create')->name('relatErro.criar');
+        Route::post('relatErro/salvar', 'RelatorioErroController@store')->name('relatErro.salvar');
     });
 });
 

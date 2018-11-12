@@ -36,6 +36,9 @@
   </ul>
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">
+        <a class="nav-link" href="{{route('relatErro.criar')}}">Relatar Erro</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="#"><i class="fas fa-user"></i> {{Auth::user()->nome}}</a>
     </li>
     <li class="nav-item">

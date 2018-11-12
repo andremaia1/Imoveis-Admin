@@ -62,7 +62,7 @@ class MultaController extends Controller
             'status' => 1,
             'dataPagamento' => null,
             'locacao_id' => $request->idLocacao,
-            'pagamento_id' => null
+            'pagamento_id' => $request->idPagamento
         ]);
         
         if ($multa) {
