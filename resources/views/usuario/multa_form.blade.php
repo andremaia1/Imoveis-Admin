@@ -17,7 +17,7 @@
     @if ($opcao == 1)
         <div class="form-group">
           <label for="tipo">Tipo (motivo):</label>
-          <select class='form-control' id='tipo' name='tipo'>
+          <select class='form-control' id='tipo' name='tipo' onChange='mudarTipoMulta()'>
               <option>Cancelamento de Contrato</option>
               <option>Atraso de Pagamento</option>
           </select>
@@ -31,10 +31,11 @@
           </select>
           <input type="hidden" id="idLocacao" name="idLocacao" value="{{$locacoes[0]->id}}">
         </div>
-        <div style="display : none" class="form-group">
+        <div style="display : none" class="form-group" id="divPagamento">
           <label for="pagamento">Pagamento:</label>
-          <select class='form-control' id='pagamento' name='pagamento'>
+          <select class='form-control' id='pagamento' name='pagamento' onChange='setIdPagamento()'>
           </select>
+          <input type="hidden" id="idPagamento" name="idPagamento" value="">
         </div>
     @else
         <div class="form-group">
@@ -59,9 +60,16 @@
 </div>
 <script>
     
+    var selectTipo = document.getElementById("tipo");
     var selectLocacao = document.getElementById("locacao");
     var inputIdLocacao = document.getElementById("idLocacao");
+    var divPagamento = document.getElementById("divPagamento");
+    var selectPagamento = document.getElementById("pagamento");
+    var inputIdPagamento = document.getElementById("idPagamento");
+    
     var idsLocacoes = [];
+    var pagamentos = [];
+    var pagamentosLocacaoAtual = [];
     
     <?php
         if ($opcao == 1) {
@@ -72,11 +80,71 @@
                 echo 'idsLocacoes['.$indiceAtualLocacao.'] = '.$locacao->id.';';
                 $indiceAtualLocacao++;
             }
+            
+            $indiceAtualPagamento = 0;
+
+            foreach ($pagamentos as $pagamento) {
+                
+                $mesVenc = explode('-', $pagamento->dataVencimento)[1];
+                $anoVenc = explode('-', $pagamento->dataVencimento)[0];
+                
+                echo 'pagamentos['.$indiceAtualPagamento.'] = '.$pagamento->id.'+" "+'.$pagamento->locacao_id.'+" "+'.$mesVenc.'+"/"+'.$anoVenc.';';
+                
+                $indiceAtualPagamento++;
+            }
         }
     ?>
     
+    function mudarTipoMulta() {
+        
+        if (selectTipo.selectedIndex === 1) {
+            divPagamento.style.display = "block";
+            setIdLocacao();
+        } else {
+            divPagamento.style.display = "none";
+            inputIdPagamento.value = "";
+        }
+    }
+    
     function setIdLocacao() {
-        inputIdLocacao.value = idsLocacoes[selectLocacao.selectedIndex];
+        
+        var idLocacao = idsLocacoes[selectLocacao.selectedIndex];
+        
+        if (selectTipo.selectedIndex === 1) {
+            listarPagamentosDeLocacao(idLocacao);
+        }
+        
+        inputIdLocacao.value = idLocacao;
+    }
+    
+    function listarPagamentosDeLocacao(idLocacao) {
+        
+        var j = 0;
+        
+        selectPagamento.options.length = 0;
+        
+        pagamentosLocacaoAtual = [];
+        
+        for (var i=0; i<pagamentos.length; i++) {
+            
+            if (pagamentos[i].split(" ")[1] == idLocacao) {
+                
+                selectPagamento.options[selectPagamento.options.length] = new Option(pagamentos[i].split(" ")[2], "");
+                
+                pagamentosLocacaoAtual[j] = pagamentos[i];
+                
+                j++;
+            }
+        }
+        
+        setIdPagamento();
+    }
+    
+    function setIdPagamento() {
+        
+        var idPagamento = pagamentosLocacaoAtual[selectPagamento.selectedIndex].split(" ")[0];
+        
+        inputIdPagamento.value = idPagamento;
     }
     
     function pago() {
