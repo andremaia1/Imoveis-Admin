@@ -8,6 +8,7 @@ use App\Condominio;
 use App\Imobiliaria;
 use App\Pagamento;
 use App\ItemHistorico;
+use App\Endereco;
 
 class ImovelController extends Controller
 {
@@ -41,6 +42,12 @@ class ImovelController extends Controller
      */
     public function store(Request $request)
     {
+        $endereco = Endereco::create([
+            'numero' => $request->numero,
+            'logradouro' => $request->logradouro,
+            'bairro_distrito' => $request->bairro_distrito
+        ]);
+        
         $imovel = Imovel::create([
             'nome_apelido' => $request->nome,
             'descricao' => $request->descricao,
@@ -49,16 +56,24 @@ class ImovelController extends Controller
             'areaConstr' => $request->areaConstr,
             'areaTotal' => $request->areaTotal,
             'dataCompra' => $request->dataCompra,
-            'usuario_id' => auth()->guard('usuario')->getUser()->id
+            'usuario_id' => auth()->guard('usuario')->getUser()->id,
+            'endereco_id' => $endereco->id
         ]);
         
         if ($request->auxCondom == "on") {
             
+            $enderecoImob = Endereco::create([
+                'numero' => $request->numeroImob,
+                'logradouro' => $request->logradouroImob,
+                'bairro_distrito' => $request->bairro_distrito_imob
+            ]);
+
             $imob = Imobiliaria::create([
                 'nome' => $request->nomeImob,
                 'email' => $request->emailImob,
                 'telefone' => $request->telefoneImob,
-                'enderecoSite' => $request->enderecoSiteImob
+                'enderecoSite' => $request->enderecoSiteImob,
+                'endereco_id' => $enderecoImob->id
             ]);
             
             $condominio = Condominio::create([
@@ -157,9 +172,32 @@ class ImovelController extends Controller
     {
         $imovel = Imovel::find($id);
         
+        $endereco = $imovel->endereco;
+        
+        $condominio = Condominio::where('imovel_id', $imovel->id)->get()->first();
+        
+        if ($condominio != null) {
+            
+            $imobiliaria = $condominio->imobiliaria;
+
+            $imobiliaria->nome = $request->nomeImob;
+            $imobiliaria->email = $request->emailImob;
+            $imobiliaria->telefone = $request->telefoneImob;
+            $imobiliaria->enderecoSite = $request->enderecoSiteImob;
+            
+            $enderecoImob = $imobiliaria->endereco;
+            
+            $enderecoImob->numero = $request->numeroImob;
+            $enderecoImob->logradouro = $request->logradouroImob;
+            $enderecoImob->bairro_distrito = $request->bairro_distrito_imob;
+            
+            $imobiliaria->update();
+            $enderecoImob->update();
+        }
+        
         $dados = $request->all();
         
-        if ($imovel->update($dados)) {
+        if ($imovel->update($dados) && $endereco->update($dados)) {
             return redirect('/usuario');
         }
         return redirect('/usuario');
@@ -175,7 +213,22 @@ class ImovelController extends Controller
     {
         $imovel = Imovel::find($id);
         
-        if ($imovel->delete()) {
+        $endereco = $imovel->endereco;
+        
+        $condominio = Condominio::where('imovel_id', $imovel->id)->get()->first();
+        
+        if ($condominio != null) {
+            
+            $imobiliaria = $condominio->imobiliaria;
+            
+            $enderecoImob = $imobiliaria->endereco;
+            
+            $condominio->delete();
+            $imobiliaria->delete();
+            $enderecoImob->delete();
+        }
+        
+        if ($imovel->delete() && $endereco->delete()) {
             return redirect('/usuario');
         }
         return redirect('/usuario');
