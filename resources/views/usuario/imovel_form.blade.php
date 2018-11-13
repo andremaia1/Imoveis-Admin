@@ -19,7 +19,8 @@
         {!! method_field('put') !!}
   @endif
       @csrf
-    <hr><hr>
+    <hr>
+    <h4 style="margin-bottom:10px">Dados do Imóvel</h4>
     <div class="form-group">
       <label for="nome">Nome (Apelido):</label>
       <input type="text" class="form-control" id="nome"
@@ -79,6 +80,23 @@
           <label for="enderecoSiteImob">Endereço do Site:</label>
           <input type="text" class="form-control" id="enderecoSiteImob"
                  value="{{$imobiliaria->enderecoSite or old('enderecoSite')}}" placeholder="Digite o endereco do site da imobiliária (www...)" name="enderecoSiteImob">
+        </div>
+        <hr>
+        <h5>Dados do Endereço da Imobiliária</h5>
+        <div class="form-group">
+          <label for="numeroImob">Número:</label>
+          <input type="text" class="form-control" id="numeroImob"
+                 value="{{$imobiliaria->endereco->numero or old('numero')}}" placeholder="Número" name="numeroImob">
+        </div>
+        <div class="form-group">
+          <label for="logradouroImob">Logradouro:</label>
+          <input type="text" class="form-control" id="logradouroImob"
+                 value="{{$imobiliaria->endereco->logradouro or old('logradouro')}}" placeholder="Logradouro" name="logradouroImob">
+        </div>
+        <div class="form-group">
+          <label for="bairro_distrito_imob">Bairro (ou distrito):</label>
+          <input type="text" class="form-control" id="bairro_distrito_imob"
+                 value="{{$imobiliaria->endereco->bairro_distrito or old('bairro_distrito')}}" placeholder="Bairro (ou distrito)" name="bairro_distrito_imob">
         </div>
         <hr>
         <h5>Dados do Pagamento</h5>
@@ -148,6 +166,23 @@
       <label for="dataCompra">Data da Compra do Imóvel:</label>
       <input type="date" class="form-control" id="dataCompra" <?php if ($opcao === 2) echo "disabled";?>
              value="" name="dataCompra">
+    </div>
+    <hr>
+    <h4>Dados do Endereço</h4>
+    <div class="form-group">
+      <label for="numero">Número:</label>
+      <input type="text" class="form-control" id="numero"
+             value="{{$imovel->endereco->numero or old('numero')}}" placeholder="Número" name="numero">
+    </div>
+    <div class="form-group">
+      <label for="logradouro">Logradouro:</label>
+      <input type="text" class="form-control" id="logradouro"
+             value="{{$imovel->endereco->logradouro or old('logradouro')}}" placeholder="Logradouro" name="logradouro">
+    </div>
+    <div class="form-group">
+      <label for="bairro_distrito">Bairro (ou distrito):</label>
+      <input type="text" class="form-control" id="bairro_distrito"
+             value="{{$imovel->endereco->bairro_distrito or old('bairro_distrito')}}" placeholder="Bairro (ou distrito)" name="bairro_distrito">
     </div>
     <input type="hidden" name="auxCondom" id="auxCondom" value="off">
     <button type="submit" class="btn btn-primary">Enviar</button>

@@ -8,13 +8,18 @@ class Imovel extends Model
 {
     protected $table = 'imovel';
     
-    protected $fillable = ['nome_apelido', 'descricao', 'tipo', 'status', 'areaConstr', 'areaTotal', 'dataCompra', 'usuario_id'];
+    protected $fillable = ['nome_apelido', 'descricao', 'tipo', 'status', 'areaConstr', 'areaTotal', 'dataCompra', 'usuario_id', 'endereco_id'];
     
     public $timestamps = false;
 
     public function usuario()
     {
         return $this->belongsTo('App\Usuario', 'usuario_id');
+    }
+    
+    public function endereco()
+    {
+        return $this->belongsTo('App\Endereco', 'endereco_id');
     }
     
     public function getTipoAttribute($value)
