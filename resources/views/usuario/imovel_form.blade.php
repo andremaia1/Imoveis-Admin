@@ -8,7 +8,7 @@
 
 <div class="container">
   &nbsp;
-  @if ($opcao === 1)
+  @if ($opcao == 1)
     <h2>Novo Imóvel</h2>
     &nbsp;
     <form method="POST" action="{{route('imoveis.store')}}" id="form">
@@ -33,7 +33,7 @@
     </div>
     <div class="form-group">
       <label for="tipo">Tipo:</label>
-      <select class="form-control" id="tipo" name="tipo" onChange="carregarForm()">
+      <select class="form-control" id="tipo" name="tipo" onChange="carregarForm()" <?php if ($opcao == 2) echo "disabled";?>>
           <?php
             $array = ["<option>Casa</option>",
                       "<option>Apartamento</option>",
@@ -42,7 +42,7 @@
                       "<option>Fazenda</option>",
                       "<option>Imóvel Comercial</option>"];
             
-            if ($opcao === 2) {
+            if ($opcao == 2) {
                 $array[$imovel->getTipo()-1] = "<option selected>" . $imovel->tipo . "</option>";
             }
             
@@ -84,6 +84,34 @@
         <hr>
         <h5>Dados do Endereço da Imobiliária</h5>
         <div class="form-group">
+            <label for="ufImob">Unidade Federativa (estado):</label>
+            <select class='form-control' id='ufImob' name='ufImob' onChange='setIdUf(2)'>
+                <option>-</option>
+                @if ($opcao == 1)
+                    @foreach($ufs as $uf)
+                        <option>{{$uf->nome}}</option>
+                    @endforeach
+                @else
+                    @if ($imovel->tipo == 'Apartamento')
+                        @foreach($ufs as $uf)
+                            @if ($imobiliaria->endereco->cidade->uf->id == $uf->id)
+                                <option selected>{{$uf->nome}}</option>
+                            @else
+                                <option>{{$uf->nome}}</option>
+                            @endif
+                        @endforeach
+                    @endif
+                @endif
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="cidadeImob">Cidade:</label>
+            <select class='form-control' id='cidadeImob' name='cidadeImob' onChange='setIdCidade(2)'>
+                <option>-</option>
+            </select>
+        </div>
+        <input type="hidden" id="idCidadeImob" name="idCidadeImob" value="">
+        <div class="form-group">
           <label for="numeroImob">Número:</label>
           <input type="text" class="form-control" id="numeroImob"
                  value="{{$imobiliaria->endereco->numero or old('numero')}}" placeholder="Número" name="numeroImob">
@@ -108,7 +136,7 @@
                 <button type="button" class="btn btn-primary" onClick="adicionarItem()"><i class="fas fa-plus"></i></button>
             </div>
         </div>
-        @if ($opcao === 2)
+        @if ($opcao == 2)
             @foreach($itens as $item)
                 <div class="form-group">
                     <label for="item_{{$item->id}}">Item {{$indiceItem}}:</label>
@@ -142,7 +170,7 @@
                       "<option>Por Alugar</option>",
                        "<option disabled>Alugado</option>"];
             
-            if ($opcao === 2) {
+            if ($opcao == 2) {
                 $array[$imovel->getStatus()-1] = "<option selected>" . $imovel->status . "</option>";
             }
             
@@ -164,11 +192,37 @@
     </div>
     <div class="form-group">
       <label for="dataCompra">Data da Compra do Imóvel:</label>
-      <input type="date" class="form-control" id="dataCompra" <?php if ($opcao === 2) echo "disabled";?>
+      <input type="date" class="form-control" id="dataCompra" <?php if ($opcao == 2) echo "disabled";?>
              value="" name="dataCompra">
     </div>
     <hr>
     <h4>Dados do Endereço</h4>
+    <div class="form-group">
+        <label for="uf">Unidade Federativa (estado):</label>
+        <select class='form-control' id='uf' name='uf' onChange='setIdUf(1)'>
+            <option>-</option>
+            @if ($opcao == 1)
+                @foreach($ufs as $uf)
+                    <option>{{$uf->nome}}</option>
+                @endforeach
+            @else
+                @foreach($ufs as $uf)
+                    @if ($imovel->endereco->cidade->uf->id == $uf->id)
+                        <option selected>{{$uf->nome}}</option>
+                    @else
+                        <option>{{$uf->nome}}</option>
+                    @endif
+                @endforeach
+            @endif
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="cidade">Cidade:</label>
+        <select class='form-control' id='cidade' name='cidade' onChange='setIdCidade(1)'>
+            <option>-</option>
+        </select>
+    </div>
+    <input type="hidden" id="idCidade" name="idCidade" value="">
     <div class="form-group">
       <label for="numero">Número:</label>
       <input type="text" class="form-control" id="numero"
@@ -194,12 +248,131 @@
     var selectTipo = document.getElementById("tipo");
     var divFormCondominio = document.getElementById("formCondominio");
     var auxCondom = document.getElementById("auxCondom");
+    var selectUf = document.getElementById("uf");
+    var selectCidade = document.getElementById("cidade");
+    var inputIdCidade = document.getElementById("idCidade");
+    var selectUfImob = document.getElementById("ufImob");
+    var selectCidadeImob = document.getElementById("cidadeImob");
+    var inputIdCidadeImob = document.getElementById("idCidadeImob");
     
     var elementoRef;
     var indiceItem = 1;
     
+    var idsUfs = [];
+    var cidades = [];
+    var cidadesUfAtual = [];
+    var cidadesUfAtualImob = [];
+    
+    <?php
+        $indiceAtualUf = 1;
+
+        foreach ($ufs as $uf) {
+            
+            echo 'idsUfs['.$indiceAtualUf.'] = '.$uf->id.';';
+            
+            $indiceAtualUf++;
+        }
+
+        $indiceAtualCidade = 1;
+
+        foreach ($cidades as $cidade) {
+
+            echo 'cidades['.$indiceAtualCidade.'] = '.$cidade->id.'+"_"+'.$cidade->idUf.'+"_'.$cidade->nome.'";';
+
+            $indiceAtualCidade++;
+        }
+        
+        if ($opcao == 2) {
+            
+            echo "setIdUf(1);";
+            
+            if ($imovel->tipo == "Apartamento") {
+                echo "setIdUf(2);";
+                echo "inputIdCidadeImob.value = ".$imobiliaria->endereco->cidade->id.";";
+            }
+            
+            echo "inputIdCidade.value = ".$imovel->endereco->cidade->id.";";
+        }
+    ?>
+    
+    function setIdUf(opcao) {
+        
+        if (opcao == 1) {
+            var idUf = idsUfs[selectUf.selectedIndex];
+        } else {
+            var idUf = idsUfs[selectUfImob.selectedIndex];
+        }
+        
+        listarCidades(idUf, opcao);
+    }
+    
+    function listarCidades(idUf, opcao) {
+        
+        if (opcao == 1) {
+            var selectCidadeAtual = selectCidade;
+            cidadesUfAtual = [];
+        } else {
+            var selectCidadeAtual = selectCidadeImob;
+            cidadesUfAtualImob = [];
+        }
+        
+        var j = 0;
+        
+        selectCidadeAtual.options.length = 0;
+        
+        if ({{$opcao}} == 1) {
+            
+            for (var i=1; i<cidades.length; i++) {
+
+                if (cidades[i].split("_")[1] == idUf) {
+
+                    selectCidadeAtual.options[selectCidadeAtual.options.length] = new Option(cidades[i].split("_")[2], "");
+
+                    cidadesUfAtual[j] = cidades[i];
+
+                    j++;
+                }
+            }
+        } else {
+            
+            for (var i=1; i<cidades.length; i++) {
+
+                if (cidades[i].split("_")[1] == idUf) {
+
+                    selectCidadeAtual.options[selectCidadeAtual.options.length] = new Option(cidades[i].split("_")[2], "");
+
+                    if ((opcao == 1 && cidades[i].split("_")[0] == <?php echo ($opcao == 2) ? $imovel->endereco->cidade->id : 0;?>) || (opcao == 2 && cidades[i].split("_")[0] == <?php echo ($opcao == 2 && $imovel->tipo == "Apartamento") ? $imobiliaria->endereco->cidade->id : 0;?>)) {
+                        selectCidadeAtual.options[selectCidadeAtual.options.length-1].selected = true;
+                    }
+                    
+                    if (opcao == 1) {
+                        cidadesUfAtual[j] = cidades[i];
+                    } else {
+                        cidadesUfAtualImob[j] = cidades[i];
+                    }
+                    
+                    j++;
+                }
+            }
+        }
+        
+        setIdCidade(opcao);
+    }
+    
+    function setIdCidade(opcao) {
+        
+        if (opcao == 1) {
+            var idCidade = cidadesUfAtual[selectCidade.selectedIndex].split("_")[0];
+            inputIdCidade.value = idCidade;
+        } else {
+            var idCidade = cidadesUfAtualImob[selectCidadeImob.selectedIndex].split("_")[0];
+            inputIdCidadeImob.value = idCidade;
+        }
+    }
+    
     function carregarForm() {
-        if (selectTipo.selectedIndex === 1) {
+        
+        if (selectTipo.selectedIndex == 1) {
             divFormCondominio.style.display = "block";
             auxCondom.value = "on";
         } else {
@@ -208,7 +381,7 @@
         }
     }
     
-    if ({{$opcao}} === 1) {
+    if ({{$opcao}} == 1) {
         elementoRef = document.getElementById("formDadosPagto");
     } else {
         elementoRef = document.getElementById("hrRef");
