@@ -9,6 +9,8 @@ use App\Imobiliaria;
 use App\Pagamento;
 use App\ItemHistorico;
 use App\Endereco;
+use App\Uf;
+use App\Cidade;
 
 class ImovelController extends Controller
 {
@@ -31,7 +33,11 @@ class ImovelController extends Controller
     {
         $opcao = 1;
         
-        return view('usuario.imovel_form', compact('opcao'));
+        $ufs = Uf::all();
+        
+        $cidades = Cidade::all();
+        
+        return view('usuario.imovel_form', compact('ufs', 'cidades', 'opcao'));
     }
 
     /**
@@ -45,7 +51,8 @@ class ImovelController extends Controller
         $endereco = Endereco::create([
             'numero' => $request->numero,
             'logradouro' => $request->logradouro,
-            'bairro_distrito' => $request->bairro_distrito
+            'bairro_distrito' => $request->bairro_distrito,
+            'cidade_id' => $request->idCidade
         ]);
         
         $imovel = Imovel::create([
@@ -65,7 +72,8 @@ class ImovelController extends Controller
             $enderecoImob = Endereco::create([
                 'numero' => $request->numeroImob,
                 'logradouro' => $request->logradouroImob,
-                'bairro_distrito' => $request->bairro_distrito_imob
+                'bairro_distrito' => $request->bairro_distrito_imob,
+                'cidade_id' =>$request->idCidadeImob
             ]);
 
             $imob = Imobiliaria::create([
@@ -150,6 +158,10 @@ class ImovelController extends Controller
         
         $imovel = Imovel::find($id);
         
+        $ufs = Uf::all();
+        
+        $cidades = Cidade::all();
+        
         if ($imovel->tipo == 'Apartamento') {
             $condominio = Condominio::where('imovel_id', $id)->get()->first();
             $imobiliaria = Imobiliaria::find($condominio->imobiliaria_id);
@@ -158,7 +170,7 @@ class ImovelController extends Controller
             $itens = [];
         }
         
-        return view('usuario.imovel_form', compact('imovel', 'imobiliaria', 'itens', 'opcao'));
+        return view('usuario.imovel_form', compact('imovel', 'imobiliaria', 'itens', 'ufs', 'cidades', 'opcao'));
     }
 
     /**
@@ -173,6 +185,7 @@ class ImovelController extends Controller
         $imovel = Imovel::find($id);
         
         $endereco = $imovel->endereco;
+        $endereco->cidade_id = $request->idCidade;
         
         $condominio = Condominio::where('imovel_id', $imovel->id)->get()->first();
         
@@ -190,6 +203,7 @@ class ImovelController extends Controller
             $enderecoImob->numero = $request->numeroImob;
             $enderecoImob->logradouro = $request->logradouroImob;
             $enderecoImob->bairro_distrito = $request->bairro_distrito_imob;
+            $enderecoImob->cidade_id = $request->idCidadeImob;
             
             $imobiliaria->update();
             $enderecoImob->update();
