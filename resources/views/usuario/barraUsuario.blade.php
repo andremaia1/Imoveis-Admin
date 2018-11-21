@@ -39,7 +39,7 @@
         <a class="nav-link" href="{{route('relatErro.criar')}}">Relatar Erro</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-user"></i> {{Auth::user()->nome}}</a>
+        <a class="nav-link" href="{{route('usuario.edit', Auth::user()->id)}}"><i class="fas fa-user"></i> {{Auth::user()->nome}}</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{route('usuario.logout')}}"><i class="fas fa-arrow-right"></i> Sair</a>

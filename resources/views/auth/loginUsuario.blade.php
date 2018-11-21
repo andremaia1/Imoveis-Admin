@@ -1,75 +1,127 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+        <title>Imoveis Admin</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Seja Bem-Vindo(a)') }}</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                </div>
+                <div style="margin-top:5%" class="col-sm-4 panel panel-default div_tab">
+                    <h3 align="center">Entre ou Inscreva-se</h3>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('usuario.logar') }}">
-                        @csrf
-                        
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('Email') }}</label>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#entrar">Entrar</a></li>
+                        <li><a data-toggle="tab" href="#inscrever">Inscrever-se</a></li>
+                    </ul>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                    <div class="tab-content">
+                        <br/>
+                        <div id="entrar" class="tab-pane fade in active">
+                            <form action="{{route('usuario.logar')}}" method="POST">
+                                @csrf
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                <!-- Mensagem do sitema -->
+                                @if ($errors->has('mensagem')) 
+                                <div class="col-sm-12 text-center alert alert-danger  fade in form-group{{ $errors->has('mensagem') ? ' has-error' : '' }}">
+                                    <!-- Mesagem de ERRO -->
+                                    <span>
+                                        <strong>{{ $errors->first('mensagem') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Senha') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        
-                        <div class="form-group{{ $errors->has('erroLogin') ? ' has-error' : '' }} text-center">
-                        @if ($errors->has('erroLogin'))
-                            <strong style='color : red'>{{ $errors->first('erroLogin') }}</strong>
-                        @endif
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Lembrar Dados') }}
-                                    </label>
                                 </div>
-                            </div>
+                                @endif
+                                    @if (session('sucess'))
+                                        <div class="alert alert-success">
+                                            {{ session('sucess') }}
+                                        </div>
+                                    @endif
+
+                                <div class="form-group email">
+                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <label for="email">E-mail:</label>
+                                        <input type="text" class="form-control" id="email"  name="email" value="{{ old('email') }}" required autofocus"/>
+                                               @if ($errors->has('email'))
+                                               <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group password">
+                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                        <label for="password">Senha:</label>
+                                        <input type="password" class="form-control" id="password" name="password"/>
+                                        @if ($errors->has('password'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group{{ $errors->has('erroLogin') ? ' has-error' : '' }} text-center">
+                                    @if ($errors->has('erroLogin'))
+                                        <strong style='color : red'>{{ $errors->first('erroLogin') }}</strong>
+                                    @endif
+                                </div>
+                                
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-default"> Entrar </button>
+                                </div>
+
+
+                            </form>
+                            
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Entrar') }}
-                                </button>
+                        <div id="inscrever" class="tab-pane fade">
+                            <form method="POST" action="{{route('usuario.cadastrar')}}">
+                                @csrf
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Esqueceu sua senha?') }}
-                                </a>
-                            </div>
+                                <!-- Mensagem do sitema -->
+                                @if ($errors->has('mensagem')) 
+                                <!-- Mesagem de ERRO -->
+                                <div class="col-sm-12 text-center alert alert-danger  fade in form-group{{ $errors->has('mensagem') ? ' has-error' : '' }}">
+                                    <span>
+                                        <strong>{{ $errors->first('mensagem') }}</strong>
+                                    </span>
+                                </div>
+                                @endif
+                                <div class="form-group">
+                                    <label for="nome">Nome:</label>
+                                    <input type="text" class="form-control" id="nome"  name="nome" placeholder="Nome Completo"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-mail:</label>
+                                    <input type="text" class="form-control" id="email"  name="email" placeholder="Email"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Senha:</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefone">Telefone:</label>
+                                    <input type="telefone" class="form-control" id="telefone" name="telefone" placeholder="Nº Telefone"/>
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-default"> Inscrever </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+        <div class="navbar-fixed-bottom">
+
+        </div>
+    </body>
+</html>

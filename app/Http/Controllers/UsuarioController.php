@@ -40,7 +40,22 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $usuario = Usuario::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'telefone' => $request->telefone,
+            'ativo' => 1
+        ]);
+        
+        if ($usuario) {
+            
+            $dados = ['email' => $request->email, 'password' => $request->password];
+            
+            if (Auth()->guard('usuario')->attempt($dados)) {
+                return redirect('/usuario');
+            }
+        }
     }
 
     /**
@@ -67,7 +82,9 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        
+        return view('usuario.usuario_form', compact('usuario'));
     }
 
     /**
@@ -79,7 +96,13 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $usuario = Usuario::find($id);
+        
+        $dados = $request->all();
+        
+        if ($usuario->update($dados)) {
+            return redirect('/usuario');
+        }
     }
 
     /**
@@ -90,7 +113,13 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        
+        auth()->guard('usuario')->logout();
+        
+        if ($usuario->delete()) {
+            return redirect('/');
+        }
     }
     
     /*

@@ -39,12 +39,16 @@ Route::group(['middleware' => 'usuario'], function () {
     
     Route::get('/', 'UsuarioController@login')->name('usuario.login');
     Route::post('/usuario/logar', 'UsuarioController@logar')->name('usuario.logar');
+    Route::post('/usuario/cadastrar', 'UsuarioController@store')->name('usuario.cadastrar');
     
     //Grupo de rotas dos usuários autenticados
     Route::group(['middleware' => 'auth:usuario'], function () {
         
         Route::get('/usuario', 'UsuarioController@index')->name('usuario.index');
         Route::get('/usuario/logout', 'UsuarioController@logout')->name('usuario.logout');
+        Route::get('/usuario/edit/{id}', 'UsuarioController@edit')->name('usuario.edit');
+        Route::put('/usuario/update/{id}', 'UsuarioController@update')->name('usuario.update');
+        Route::delete('/usuario/destroy/{id}', 'UsuarioController@destroy')->name('usuario.destroy');
         Route::resource('imoveis', 'ImovelController');
         Route::resource('locacoes', 'LocacaoController');
         Route::get('locatario/ver/{id}', 'LocatarioController@show')->name('locatario.ver');

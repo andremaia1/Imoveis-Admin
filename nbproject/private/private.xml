@@ -12,7 +12,6 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Cidade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_07_03_043226_add_locatario_id_to_locacao_table.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/imoveis_list.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/despesas_list.blade.php</file>
@@ -20,6 +19,7 @@
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/ImovelController.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Multa.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locatario_view.blade.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/welcome.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacao_form.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/DespesaController.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/CondominioController.php</file>
@@ -41,20 +41,18 @@
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/multa_form.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/imovel_form.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_10_08_232545_add_condominio_id_to_item_historico_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/auth/loginUsuario.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/pagamento_view.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_11_13_031023_add_endereco_id_to_imobiliaria_table.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_10_25_230156_create_empresa_table.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/MultaController.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/usuario_form.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Empresa.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_11_13_235113_create_cidade_table.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/seeds/DatabaseSeeder.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/EmpresaController.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/seeds/UfTableSeeder.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Endereco.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Uf.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Imovel.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_11_10_000614_create_relatorio_erro_table.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_11_13_231201_create_uf_table.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacoes_list.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/seeds/AdministradorTableSeeder.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/condominios_list.blade.php</file>
@@ -65,11 +63,11 @@
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/barraUsuario.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/administrador/admin_list.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/usuario/locacao_view.blade.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/seeds/CidadeTableSeeder.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/imovel_view.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/UsuarioController.php</file>
-            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_11_14_011844_add_cidade_id_to_endereco_table.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/resources/views/auth/login.blade.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/LocacaoController.php</file>
+            <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Http/Controllers/AdministradorController.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/app/Locatario.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_06_02_192145_create_imovel_table.php</file>
             <file>file:/C:/Users/ACER/Downloads/Imoveis_Admin/database/migrations/2018_11_05_232350_add_empresa_id_to_locacao_table.php</file>
