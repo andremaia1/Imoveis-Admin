@@ -13,6 +13,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8">
+                    <div class="div_logo">
+                        <img style="width:100%; margin-top:20%; margin-left:-5%" src="/imagens/logoMarcaSistema.png" alt="logoMarca">
+                        <blockquote class="blockquote-reverse">
+                            <p style="font-size:120%">Controle seus alugueis de forma simples e de qualquer lugar</p>
+                        </blockquote>
+                    </div>
                 </div>
                 <div style="margin-top:5%" class="col-sm-4 panel panel-default div_tab">
                     <h3 align="center">Entre ou Inscreva-se</h3>
@@ -74,7 +80,7 @@
                                 </div>
                                 
                                 <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-default"> Entrar </button>
+                                    <button style="padding-left:10%; padding-right:10%" type="submit" class="btn btn-primary"> Entrar </button>
                                 </div>
 
 
@@ -112,7 +118,7 @@
                                     <input type="telefone" class="form-control" id="telefone" name="telefone" placeholder="Nº Telefone"/>
                                 </div>
                                 <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-default"> Inscrever </button>
+                                    <button style="padding-left:10%; padding-right:10%" type="submit" class="btn btn-primary"> Inscrever </button>
                                 </div>
                             </form>
                         </div>

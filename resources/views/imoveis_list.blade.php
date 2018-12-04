@@ -1,4 +1,4 @@
-@extends('usuario.barraUsuario')
+@extends(auth()->guard('usuario')->getUser() == null ? 'administrador.barraAdmin' : 'usuario.barraUsuario')
 
 @section('conteudo')
 

@@ -31,10 +31,10 @@
               <td>{{$admin->nome}}</td>
               <td>{{$admin->email}}</td>
               <td>{{$admin->telefone}}</td>
-              @if (Auth::user()->id === 1)
+              @if (Auth::user()->id == 1)
               <td>
+                  @if ($admin->id != 1)
                   <a href="{{route('admins.edit', $admin->id)}}" class="btn btn-warning" role="button">Editar</a>
-                  @if ($admin->id !== 1)
                   <form style="display : inline-block"
                         method="POST"
                         action="{{route('admins.destroy', $admin->id)}}"
@@ -46,21 +46,8 @@
                   </form>
                   @endif
               </td>
-              @elseif ($admin->id === Auth::user()->id)
-              <td>
-                <a href="{{route('admins.edit', $admin->id)}}" class="btn btn-warning" role="button">Editar</a>
-                <form style="display : inline-block"
-                      method="POST"
-                      action="{{route('admins.destroy', $admin->id)}}"
-                      onsubmit="return confirm('Tem certeza que deseja excluir {{$admin->nome}}?')">
-                      {{ method_field('delete') }}
-                      @csrf
-                      <button type="submit"
-                              class="btn btn-danger">Deletar</button>
-                </form>
-              </td>
               @else
-              <td></td>
+                <td></td>
               @endif
           </tr>
           @endforeach

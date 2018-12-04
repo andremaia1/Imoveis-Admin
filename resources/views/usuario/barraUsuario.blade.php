@@ -14,8 +14,9 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <!-- Brand/logo -->
-  <a class="navbar-brand" href="#">Imoveis Admin</a>
-  
+  <div class="navbar-header">
+    <img src="/imagens/imagemLogoSistema.png" width="60" alt="logo">
+  </div>
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">

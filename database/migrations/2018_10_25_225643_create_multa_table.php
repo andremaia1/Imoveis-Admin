@@ -20,8 +20,8 @@ class CreateMultaTable extends Migration
             $table->date('dataPagamento')->nullable();
             $table->unsignedInteger('locacao_id')->nullable();
             $table->unsignedInteger('pagamento_id')->nullable();
-            $table->foreign('locacao_id')->references('id')->on('locacao')->onDelete('set null');
-            $table->foreign('pagamento_id')->references('id')->on('pagamento')->onDelete('set null');
+            $table->foreign('locacao_id')->references('id')->on('locacao')->onDelete('cascade');
+            $table->foreign('pagamento_id')->references('id')->on('pagamento')->onDelete('cascade');
         });
     }
 

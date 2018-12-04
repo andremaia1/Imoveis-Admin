@@ -1,4 +1,4 @@
-@extends('administrador.barraAdmin')
+@extends(auth()->guard('usuario')->getUser() == null ? 'administrador.barraAdmin' : 'usuario.barraUsuario')
 
 @section('conteudo')
 
@@ -11,7 +11,7 @@
 
     <div class="container">
         <hr style="background-color:gainsboro">
-        @if (auth()->guard('usuario')->getUser() === null)
+        @if (auth()->guard('usuario')->getUser() == null)
             <p><b>Id: </b>{{$imovel->id}}</p>
         @endif
         <p><b>Nome (Apelido): </b>{{$imovel->nome_apelido}}</p>

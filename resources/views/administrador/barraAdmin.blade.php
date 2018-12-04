@@ -14,7 +14,9 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <!-- Brand/logo -->
-  <a class="navbar-brand" href="#">Imoveis Admin</a>
+  <div class="navbar-header">
+    <img src="/imagens/imagemLogoSistema.png" width="60" alt="logo">
+  </div>
   
   <!-- Links -->
   <ul class="navbar-nav">
@@ -30,7 +32,7 @@
   </ul>
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-user"></i> {{Auth::user()->nome}}</a>
+        <a class="nav-link" href="{{route('admins.edit', Auth::user()->id)}}"><i class="fas fa-user"></i> {{Auth::user()->nome}}</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{route('admin.logout')}}"><i class="fas fa-arrow-right"></i> Sair</a>

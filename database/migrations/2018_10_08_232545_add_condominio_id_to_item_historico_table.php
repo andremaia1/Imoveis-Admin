@@ -15,7 +15,7 @@ class AddCondominioIdToItemHistoricoTable extends Migration
     {
         Schema::table('item_historico', function (Blueprint $table) {
             $table->unsignedInteger('condominio_id')->nullable();
-            $table->foreign('condominio_id')->references('id')->on('condominio');
+            $table->foreign('condominio_id')->references('id')->on('condominio')->onDelete('cascade');
         });
     }
 
