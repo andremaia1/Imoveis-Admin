@@ -289,16 +289,27 @@ class LocacaoController extends Controller
         
         $locatario = $locacao->locatario;
         
+        $imovel = $locacao->imovel;
+        
+        $imovel->status = 'Desocupado';
+        
         if ($locatario != null) {
-            $locatario->fiador->delete();
+            
+            $locacao->delete();
+            
+            $fiador = $locatario->fiador;
+            
             $locatario->delete();
+            $fiador->delete();
         } else {
-            $locacao->empresa->delete();
+            
+            $empresa = $locacao->empresa;
+            
+            $locacao->delete();
+            $empresa->delete();
         }
         
-        $locacao->imovel->status = 'Desocupado';
-        
-        if ($locacao->imovel->update() && $locacao->delete()) {
+        if ($imovel->update()) {
             return redirect('/locacoes');
         }
         return redirect('/locacoes');

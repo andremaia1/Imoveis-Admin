@@ -23,7 +23,7 @@ class CreateImovelTable extends Migration
             $table->double('areaTotal');
             $table->date('dataCompra');
             $table->unsignedInteger('usuario_id');
-            $table->foreign('usuario_id')->references('id')->on('usuario');
+            $table->foreign('usuario_id')->references('id')->on('usuario')->onDelete('cascade');
         });
     }
 
