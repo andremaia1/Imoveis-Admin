@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Imovel;
 use App\Condominio;
 use App\Imobiliaria;
@@ -48,6 +49,44 @@ class ImovelController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'nome_apelido' => 'required|min:2|max:60',
+            'descricao' => 'required|min:10|max:300',
+            'areaConstr' => 'required|numeric|min:0',
+            'areaTotal' => 'required|numeric|min:0',
+            
+            'numero' => 'required|numeric|min:0',
+            'logradouro' => 'required|min:3',
+            'bairro_distrito' => 'required|min:3',
+        ]);
+        
+        $dados = $request->all();
+        
+        if ($request->auxCondom == "on") {
+            
+            $this->validate($request, [
+                'nome' => 'required|min:2|max:60',
+                'email' => 'required|email',
+                'telefone' => 'required|min:8',
+                'endereco_site' => 'required|min:5',
+
+                'numeroImob' => 'required|numeric|min:0',
+                'logradouroImob' => 'required|min:3',
+                'bairro_distritoImob' => 'required|min:3',
+
+                'dia' => 'required|numeric|min:1|max:31',
+                'numParc' => 'required|min:1'
+            ]);
+            
+            foreach ($dados as $n => $c) {
+                if (strpos($n, 'item') !== false) {
+                    $this->validate($request, [
+                        'nome_item' => 'required|min:2'
+                    ]);
+                }
+            }
+        }
+        
         $endereco = Endereco::create([
             'numero' => $request->numero,
             'logradouro' => $request->logradouro,
@@ -88,8 +127,6 @@ class ImovelController extends Controller
                 'imovel_id' => $imovel->id,
                 'imobiliaria_id' => $imob->id
             ]);
-            
-            $dados = $request->all();
             
             foreach ($dados as $n => $c) {
                 if (strpos($n, 'item') !== false) {
@@ -182,12 +219,37 @@ class ImovelController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'nome_apelido' => 'required|min:2|max:60',
+            'descricao' => 'required|min:10|max:300',
+            'areaConstr' => 'required|numeric|min:0',
+            'areaTotal' => 'required|numeric|min:0',
+            
+            'numero' => 'required|numeric|min:0',
+            'logradouro' => 'required|min:3',
+            'bairro_distrito' => 'required|min:3',
+        ]);
+        
         $imovel = Imovel::find($id);
+        
+        $condominio = Condominio::where('imovel_id', $imovel->id)->get()->first();
+        
+        if ($condominio != null) {
+            
+            $this->validate($request, [
+                'nome' => 'required|min:2|max:60',
+                'email' => 'required|email',
+                'telefone' => 'required|min:8',
+                'endereco_site' => 'required|min:5',
+
+                'numeroImob' => 'required|numeric|min:0',
+                'logradouroImob' => 'required|min:3',
+                'bairro_distritoImob' => 'required|min:3'
+            ]);
+        }
         
         $endereco = $imovel->endereco;
         $endereco->cidade_id = $request->idCidade;
-        
-        $condominio = Condominio::where('imovel_id', $imovel->id)->get()->first();
         
         if ($condominio != null) {
             
@@ -246,5 +308,45 @@ class ImovelController extends Controller
             return redirect('/usuario');
         }
         return redirect('/usuario');
+    }
+    
+    public function grafValorLocacoes()
+    {
+        $idUsuario = auth()->guard('usuario')->getUser()->id;
+        
+        $imoveis = DB::table('imovel')
+            ->join('locacao', 'locacao.imovel_id', '=', 'imovel.id')
+            ->where('imovel.usuario_id', '=', $idUsuario)
+            ->select('imovel.nome_apelido as nomeImovel', 'locacao.valor as valorLocacao')
+            ->orderBy('locacao.valor')
+            ->get();
+        return view('usuario.valor_locacoes_graf', compact('imoveis'));
+    }
+    
+    public function grafDespesas()
+    {
+        $idUsuario = auth()->guard('usuario')->getUser()->id;
+        
+        $imoveis = DB::table('imovel')
+            ->join('despesa', 'despesa.imovel_id', '=', 'imovel.id')
+            ->where('imovel.usuario_id', '=', $idUsuario)
+            ->select('imovel.id', 'imovel.nome_apelido as nomeImovel', DB::raw('SUM(despesa.valor) as somaDespesas'))
+            ->groupBy('imovel.id', 'imovel.nome_apelido')
+            ->orderBy('somaDespesas')
+            ->get();
+        return view('usuario.despesas_graf', compact('imoveis'));
+    }
+    
+    public function grafImoveisUfToAdmin()
+    {
+        $ufs = DB::table('imovel')
+            ->join('endereco', 'imovel.endereco_id', '=', 'endereco.id')
+            ->join('cidade', 'endereco.cidade_id', '=', 'cidade.id')
+            ->join('uf', 'cidade.idUf', '=', 'uf.id')
+            ->select('uf.id', 'uf.nome as nomeUf', DB::raw('COUNT(*) as totalImoveis'))
+            ->groupBy('uf.id', 'uf.nome')
+            ->orderBy('totalImoveis')
+            ->get();
+        return view('administrador.imoveis_uf_graf', compact('ufs'));
     }
 }

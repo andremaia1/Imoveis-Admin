@@ -28,6 +28,18 @@
                         <li><a data-toggle="tab" href="#inscrever">Inscrever-se</a></li>
                     </ul>
 
+                    <div style="margin-top:10px" class="col-sm-12">
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif    
+                    </div>
+                    
                     <div class="tab-content">
                         <br/>
                         <div id="entrar" class="tab-pane fade in active">
@@ -50,33 +62,19 @@
                                     @endif
 
                                 <div class="form-group email">
-                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="email">E-mail:</label>
                                         <input type="text" class="form-control" id="email"  name="email" value="{{ old('email') }}" required autofocus"/>
-                                               @if ($errors->has('email'))
-                                               <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                        @endif
+                                               
                                     </div>
                                 </div>
 
                                 <div class="form-group password">
-                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="password">Senha:</label>
                                         <input type="password" class="form-control" id="password" name="password"/>
-                                        @if ($errors->has('password'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                        @endif
+                                        
                                     </div>
-                                </div>
-                                
-                                <div class="form-group{{ $errors->has('erroLogin') ? ' has-error' : '' }} text-center">
-                                    @if ($errors->has('erroLogin'))
-                                        <strong style='color : red'>{{ $errors->first('erroLogin') }}</strong>
-                                    @endif
                                 </div>
                                 
                                 <div class="form-group text-center">

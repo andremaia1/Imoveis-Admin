@@ -39,17 +39,23 @@ class AdministradorController extends Controller
      */
     public function store(Request $request)
     {
-        $novo = Administrador::create([
+        $this->validate($request, [
+            'nome' => 'required|min:2|max:60',
+            'email' => 'required|email|unique:administrador',
+            'senha' => 'required|min:6',
+            'telefone' => 'required|min:8'
+        ]);
+
+        $admin = Administrador::create([
             'nome' => $request['nome'],
             'email' => $request['email'],
             'password' => bcrypt($request['senha']),
             'telefone' => $request['telefone'],
         ]);
         
-        if ($novo) {
+        if ($admin) {
             return redirect('/admin');
         }
-        return redirect('/admin');
     }
 
     /**
@@ -71,11 +77,11 @@ class AdministradorController extends Controller
      */
     public function edit($id)
     {
-        $registro = Administrador::find($id);
+        $admin = Administrador::find($id);
         
         $opcao = 2;
         
-        return view('administrador.admin_form', compact('registro', 'opcao'));
+        return view('administrador.admin_form', compact('admin', 'opcao'));
     }
 
     /**
@@ -87,14 +93,24 @@ class AdministradorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $registro = Administrador::find($id);
+        $admin = Administrador::find($id);
+        
+        $this->validate($request, [
+            'nome' => 'required|min:2|max:60',
+            'telefone' => 'required|min:8'
+        ]);
+        
+        if ($request->email != $admin->email) {
+            $this->validate($request, [
+                'email' => 'required|email|unique:administrador',
+            ]);
+        }
         
         $dados = $request->all();
         
-        if ($registro->update($dados)) {
+        if ($admin->update($dados)) {
             return redirect('/admin');
         }
-        return redirect('/admin');
     }
 
     /**
@@ -105,12 +121,11 @@ class AdministradorController extends Controller
      */
     public function destroy($id)
     {
-        $registro = Administrador::find($id);
+        $admin = Administrador::find($id);
         
-        if ($registro->delete()) {
+        if ($admin->delete()) {
             return redirect('/admin');
         }
-        return redirect('/admin');
     }
     
     //Retorna o formulário de login do usuário

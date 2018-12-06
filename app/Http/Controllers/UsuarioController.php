@@ -40,6 +40,13 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'nome' => 'required|min:2|max:60',
+            'email' => 'required|email|unique:usuario',
+            'password' => 'required|min:6',
+            'telefone' => 'required|min:8'
+        ]);
+        
         $usuario = Usuario::create([
             'nome' => $request->nome,
             'email' => $request->email,
@@ -97,6 +104,17 @@ class UsuarioController extends Controller
     public function update(Request $request, $id)
     {
         $usuario = Usuario::find($id);
+        
+        $this->validate($request, [
+            'nome' => 'required|min:2|max:60',
+            'telefone' => 'required|min:8'
+        ]);
+        
+        if ($request->email != $usuario->email) {
+            $this->validate($request, [
+                'email' => 'required|email|unique:usuario',
+            ]);
+        }
         
         $dados = $request->all();
         

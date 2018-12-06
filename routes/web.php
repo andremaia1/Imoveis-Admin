@@ -31,6 +31,7 @@ Route::group(['middleware' => 'administrador'], function () {
         Route::get('/usuarios/ver_imovel/{id}', 'UsuarioController@verImovelAdmin')->name('usuarios.ver_imovel');
         Route::resource('relatErros', 'RelatorioErroController');
         Route::get('/relatErros/alterar_status/{id}', 'RelatorioErroController@alterarStatus')->name('relatErros.alterar_status');
+        Route::get('grafImoveisUf', 'ImovelController@grafImoveisUfToAdmin')->name('graf.imoveisUf');
     });
 });
 
@@ -61,6 +62,8 @@ Route::group(['middleware' => 'usuario'], function () {
         Route::get('imobiliaria/ver/{id}', 'ImobiliariaController@ver')->name('imobiliaria.ver');
         Route::resource('despesas', 'DespesaController');
         Route::resource('multas', 'MultaController');
+        Route::get('grafValorLocacoes', 'ImovelController@grafValorLocacoes')->name('graf.valorLocacoes');
+        Route::get('grafDespesas', 'ImovelController@grafDespesas')->name('graf.despesas');
         Route::get('empresa/ver/{id}', 'EmpresaController@ver')->name('empresa.ver');
         Route::get('relatErro/criar', 'RelatorioErroController@create')->name('relatErro.criar');
         Route::post('relatErro/salvar', 'RelatorioErroController@store')->name('relatErro.salvar');
