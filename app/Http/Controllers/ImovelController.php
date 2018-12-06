@@ -65,26 +65,18 @@ class ImovelController extends Controller
         if ($request->auxCondom == "on") {
             
             $this->validate($request, [
-                'nome' => 'required|min:2|max:60',
-                'email' => 'required|email',
-                'telefone' => 'required|min:8',
-                'endereco_site' => 'required|min:5',
+                'nomeImob' => 'required|min:2|max:60',
+                'emailImob' => 'required|email',
+                'telefoneImob' => 'required|min:8',
+                'enderecoSiteImob' => 'required|min:5',
 
                 'numeroImob' => 'required|numeric|min:0',
                 'logradouroImob' => 'required|min:3',
-                'bairro_distritoImob' => 'required|min:3',
+                'bairro_distrito_imob' => 'required|min:3',
 
                 'dia' => 'required|numeric|min:1|max:31',
                 'numParc' => 'required|min:1'
             ]);
-            
-            foreach ($dados as $n => $c) {
-                if (strpos($n, 'item') !== false) {
-                    $this->validate($request, [
-                        'nome_item' => 'required|min:2'
-                    ]);
-                }
-            }
         }
         
         $endereco = Endereco::create([
@@ -95,7 +87,7 @@ class ImovelController extends Controller
         ]);
         
         $imovel = Imovel::create([
-            'nome_apelido' => $request->nome,
+            'nome_apelido' => $request->nome_apelido,
             'descricao' => $request->descricao,
             'tipo' => $request->tipo,
             'status' => $request->status,

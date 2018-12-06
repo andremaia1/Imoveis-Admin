@@ -80,7 +80,7 @@ class LocacaoController extends Controller
                 'email' => 'required|email',
                 'telefone' => 'required|min:8',
                 'cpf' => 'required|min:11',
-                'rg' => 'required|numeric|min:10|max:10',
+                'rg' => 'required|numeric',
             ]);
             
             $this->validate($request, [
@@ -88,16 +88,8 @@ class LocacaoController extends Controller
                 'emailF' => 'required|email|',
                 'telefoneF' => 'required|min:8',
                 'cpfF' => 'required|min:11',
-                'rgF' => 'required|numeric|min:10|max:10',
+                'rgF' => 'required|numeric',
             ]);
-        }
-        
-        foreach ($dados as $n => $c) {
-            if (strpos($n, 'item') !== false) {
-                $this->validate($request, [
-                    'nome_item' => 'required|min:2'
-                ]);
-            }
         }
         
         $idUsuario = auth()->guard('usuario')->getUser()->id;
@@ -269,7 +261,7 @@ class LocacaoController extends Controller
                 'email' => 'required|email',
                 'telefone' => 'required|min:8',
                 'cpf' => 'required|min:11',
-                'rg' => 'required|numeric|min:10|max:10',
+                'rg' => 'required|numeric',
             ]);
             
             $this->validate($request, [
@@ -277,19 +269,11 @@ class LocacaoController extends Controller
                 'emailF' => 'required|email',
                 'telefoneF' => 'required|min:8',
                 'cpfF' => 'required|min:11',
-                'rgF' => 'required|numeric|min:10|max:10',
+                'rgF' => 'required|numeric',
             ]);
         }
         
         $dados = $request->all();
-        
-        foreach ($dados as $n => $c) {
-            if (strpos($n, 'item') !== false) {
-                $this->validate($request, [
-                    'nome_item' => 'required|min:2'
-                ]);
-            }
-        }
         
         $locacao = Locacao::find($id);
         
