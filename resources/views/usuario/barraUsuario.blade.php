@@ -34,6 +34,15 @@
     <li class="nav-item">
       <a class="nav-link" href="{{route('multas.index')}}">Multas</a>
     </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Gráficos
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{route('graf.valorLocacoes')}}">Valor das Locações</a>
+        <a class="dropdown-item" href="{{route('graf.despesas')}}">Despesas</a>
+      </div>
+    </li>
   </ul>
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">

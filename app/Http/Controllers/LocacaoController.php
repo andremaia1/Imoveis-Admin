@@ -24,7 +24,7 @@ class LocacaoController extends Controller
         
         //Busca as locações do usuário atual
         $locacoes = Locacao::join('imovel', 'imovel_id', 'imovel.id')
-                    ->where('imovel.usuario_id', $idUsuario)
+                ->where('imovel.usuario_id', $idUsuario)
                 ->select('locacao.*')->get();
         
         return view('usuario.locacoes_list', compact('locacoes'));
@@ -57,7 +57,49 @@ class LocacaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {    
+        $this->validate($request, [
+            'valor' => 'required|numeric|min:0',
+            'prazoMinContrato' => 'required|numeric|min:1'
+        ]);
+        
+        if ($request->auxLocat == "e") {
+            
+            $this->validate($request, [
+                'nomeEmpresa' => 'required|min:2',
+                'emailEmpresa' => 'required|email',
+                'telefoneEmpresa' => 'required|min:8',
+                'enderecoSite' => 'required|min:5',
+                'cnpj' => 'required|min:14'
+            ]);
+            
+        } else {
+            
+            $this->validate($request, [
+                'nome' => 'required|min:2',
+                'email' => 'required|email',
+                'telefone' => 'required|min:8',
+                'cpf' => 'required|min:11',
+                'rg' => 'required|numeric|min:10|max:10',
+            ]);
+            
+            $this->validate($request, [
+                'nomeF' => 'required|min:2',
+                'emailF' => 'required|email|',
+                'telefoneF' => 'required|min:8',
+                'cpfF' => 'required|min:11',
+                'rgF' => 'required|numeric|min:10|max:10',
+            ]);
+        }
+        
+        foreach ($dados as $n => $c) {
+            if (strpos($n, 'item') !== false) {
+                $this->validate($request, [
+                    'nome_item' => 'required|min:2'
+                ]);
+            }
+        }
+        
         $idUsuario = auth()->guard('usuario')->getUser()->id;
         
         $imovel = Imovel::where('nome_apelido', $request->imovel)
@@ -149,7 +191,7 @@ class LocacaoController extends Controller
             }
         }
         
-        if ($locacao && $imovel->update()) {
+        if ($locacao->update() && $imovel->update()) {
             return redirect('/locacoes');
         }
     }
@@ -205,12 +247,58 @@ class LocacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'valor' => 'required|numeric|min:0',
+            'prazoMinContrato' => 'required|numeric|min:1'
+        ]);
+        
+        if ($request->auxLocat == "e") {
+            
+            $this->validate($request, [
+                'nomeEmpresa' => 'required|min:2',
+                'email' => 'required|email',
+                'telefoneEmpresa' => 'required|min:8',
+                'enderecoSite' => 'required|min:5',
+                'cnpj' => 'required|min:14'
+            ]);
+            
+        } else {
+            
+            $this->validate($request, [
+                'nome' => 'required|min:2',
+                'email' => 'required|email',
+                'telefone' => 'required|min:8',
+                'cpf' => 'required|min:11',
+                'rg' => 'required|numeric|min:10|max:10',
+            ]);
+            
+            $this->validate($request, [
+                'nomeF' => 'required|min:2',
+                'emailF' => 'required|email',
+                'telefoneF' => 'required|min:8',
+                'cpfF' => 'required|min:11',
+                'rgF' => 'required|numeric|min:10|max:10',
+            ]);
+        }
+        
+        $dados = $request->all();
+        
+        foreach ($dados as $n => $c) {
+            if (strpos($n, 'item') !== false) {
+                $this->validate($request, [
+                    'nome_item' => 'required|min:2'
+                ]);
+            }
+        }
+        
         $locacao = Locacao::find($id);
         
         $locacao->valor = $request->valor;
         
         if ($request->isRenov) {
             $locacao->ultimaRenovacao = date('Y-m-d');
+        } else {
+            $locacao->ultimaRenovacao = $request->ultimaRenov;
         }
         
         $itens = ItemHistorico::where('locacao_id', $locacao->id)->get();
@@ -218,8 +306,6 @@ class LocacaoController extends Controller
         $numItens = count($itens);
         
         $contItens = 0;
-        
-        $dados = $request->all();
         
         foreach ($dados as $n => $c) {
             if (strpos($n, 'item') !== false) {
@@ -274,7 +360,6 @@ class LocacaoController extends Controller
         if ($locacao->update()) {
             return redirect('/locacoes');
         }
-        return redirect('/locacoes');
     }
 
     /**
@@ -312,6 +397,5 @@ class LocacaoController extends Controller
         if ($imovel->update()) {
             return redirect('/locacoes');
         }
-        return redirect('/locacoes');
     }
 }

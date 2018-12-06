@@ -2,6 +2,18 @@
 
 @section('conteudo')
 
+<div style="margin-top:10px" class="col-sm-12">
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif    
+</div>
+
 @php
     $indiceItem = 1;
 @endphp
@@ -45,7 +57,7 @@
     </div>
     <div class="form-group">
       <label for="dataInicio">Data Início Contrato:</label>
-      <input type="date" class="form-control" id="dataInicio" <?php if ($opcao === 2) echo "disabled";?>
+      <input type="date" class="form-control" id="dataInicio" <?php if ($opcao == 2) echo "disabled";?>
              value="{{$locacao->inicioContrato or old('inicioContrato')}}" name="dataInicio">
     </div>
     <div class="form-group">
@@ -53,10 +65,11 @@
       <input type="text" class="form-control" id="prazoMinContrato"
              value="{{$locacao->prazoMinContrato or old('prazoMinContrato')}}" placeholder="Prazo Mínimo" name="prazoMinContrato">
     </div>
-    @if ($opcao === 2)
+    @if ($opcao == 2)
         <div class="form-group">
           <label for="ultimaRenov">Data Última Renovação:</label>
-          <input type="date" class="form-control" id="ultimaRenov" name="ultimaRenov" disabled>
+          <input type="date" class="form-control" id="ultimaRenov" <?php if ($locacao->ultimaRenovacao == null) echo "disabled";?>
+                 value="{{$locacao->ultimaRenovacao or old('ultimaRenovacao')}}" name="ultimaRenov">
         </div>
         <div class="col-sm-3">
             <div class="input-group">

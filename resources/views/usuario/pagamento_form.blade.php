@@ -21,6 +21,10 @@
             <div class="form-group">
                 <input type="button" class="btn btn-success" value="Pago" onClick="pago()" id="btPago">
             </div>
+        @else
+            <div class="form-group">
+                <input type="button" class="btn btn-danger" value="Desfazer" onClick="desfazerPagto()" id="btDesfazer">
+            </div>
         @endif
         <div class="form-group">
           <label for="dataVenc">Data de Vencimento:</label>
@@ -61,6 +65,12 @@
         $("#dataPagto").val(ano+"-"+mes+"-"+dia);
         $("#dataPagto").attr("disabled", false);
         $("#btPago").attr("disabled", true);
+    }
+    
+    function desfazerPagto() {
+        
+        $("#dataPagto").val("");
+        $("#btDesfazer").attr("disabled", true);
     }
 </script>
 @endsection

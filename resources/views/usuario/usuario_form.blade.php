@@ -1,6 +1,19 @@
 @extends('usuario.barraUsuario')
 
 @section('conteudo')
+
+<div style="margin-top:10px" class="col-sm-12">
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif    
+</div>
+
 <div class="container">
     &nbsp;
     <div class="row">
