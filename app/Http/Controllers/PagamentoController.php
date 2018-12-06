@@ -41,7 +41,11 @@ class PagamentoController extends Controller
     {
         $pagamento = Pagamento::find($id);
         
-        $itens = ItemHistorico::where('locacao_id', $pagamento->locacao->id)->get();
+        if ($pagamento->locacao != null) {
+            $itens = ItemHistorico::where('locacao_id', $pagamento->locacao->id)->get();
+        } else {
+            $itens = ItemHistorico::where('condominio_id', $pagamento->condominio->id)->get();
+        }
         
         $valores = ValorItem::where('pagamento_id', $id)->get();
         

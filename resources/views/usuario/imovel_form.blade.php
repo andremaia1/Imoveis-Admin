@@ -36,7 +36,7 @@
     <div class="form-group">
       <label for="nome">Nome (Apelido):</label>
       <input type="text" class="form-control" id="nome"
-             value="{{$imovel->nome_apelido or old('nome_apelido')}}" placeholder="Digite o nome (apelido)" name="nome">
+             value="{{$imovel->nome_apelido or old('nome_apelido')}}" placeholder="Digite o nome (apelido)" name="nome_apelido">
     </div>
     <div class="form-group">
       <label for="descricao">Descrição:</label>
@@ -340,7 +340,11 @@
 
                     selectCidadeAtual.options[selectCidadeAtual.options.length] = new Option(cidades[i].split("_")[2], "");
 
-                    cidadesUfAtual[j] = cidades[i];
+                    if (opcao == 1) {
+                        cidadesUfAtual[j] = cidades[i];
+                    } else {
+                        cidadesUfAtualImob[j] = cidades[i];
+                    }
 
                     j++;
                 }
